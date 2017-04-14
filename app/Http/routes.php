@@ -36,6 +36,11 @@ Route::group(['middleware'=>'web'],function(){
     Route::resource('member','Site\MemberController');
     Route::resource('dashboard','Site\DashBoardController');
 
+    /*Search Package*/
+    Route::get('package/search/index','Site\SearchPackageController@index')
+        ->name('package.search.index');
+    Route::get('package/search','Site\SearchPackageController@search')
+        ->name('package.search.search');
     /*Package History*/
     Route::resource('package/history','Site\PackageHistoryController');
     /*Package*/

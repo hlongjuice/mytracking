@@ -22,7 +22,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title">
-                สมัครสมาชิก
+                ผู้ใช้งานทั่วไป
             </div>
         </div>
     </div>

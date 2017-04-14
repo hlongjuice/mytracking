@@ -4,7 +4,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title">
-                    ลายละเอียด
+                    สมัครสมาชิก
                 </div>
             </div>
             <div class="panel-body">

@@ -29,10 +29,12 @@ class MemberController extends Controller
     public function create()
     {
         $member_types=MemberType::all();
-        if(Auth::user()->member_type_id==3)
-            return view('admin.users.register')->with('member_types',$member_types);
-        else
+        if(Auth::guest())
             return view('site.users.register');
+        else if(Auth::user()->member_type_id==3)
+            return view('admin.users.register')->with('member_types',$member_types);
+
+        return view('/');
     }
 
     /**

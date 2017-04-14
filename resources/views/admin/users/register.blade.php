@@ -4,7 +4,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title">
-                    ลายละเอียด
+                    เพิ่มผู้ใช้งาน
                 </div>
             </div>
             <div class="panel-body">

@@ -68,6 +68,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="text-right">
+                                            <a href="{{route('package.search.index')}}">ตรวจสอบการส่งสินค้า</a>
                                             <a href="{{route('member.create')}}">สมัครสมาชิก</a>
                                         </div>
                                         {{--<div class="col-xs-6">--}}
