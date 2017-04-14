@@ -15,9 +15,16 @@ class SearchPackageController extends Controller
         return view('site.users.package.search.index');
     }
     public function search(Request $request){
+        $this->validate($request,[
+           'service_id'=>'required'
+        ],[
+            'service_id.required'=>'กรุณากรอกหรัสบริการ'
+        ]);
         $service_id=$request->input('service_id');
         $package=Package::with('status')->where('service_id',$service_id)->first();
         $package_price=PackagePrice::find(1);
+        if(!$package)
+            return redirect()->back()->withErrors(['service'=>'ไม่พบรายการที่ระบุ']);
         return view('site.users.package.history.show')
             ->with(['package'=>$package,'package_price'=>$package_price]);
     }

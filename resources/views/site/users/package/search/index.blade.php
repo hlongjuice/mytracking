@@ -18,6 +18,8 @@
                                     <label class="sr-only" for="search"></label>
                                 <div class="col-xs-8 col-md-offset-3 col-md-5">
                                     <input placeholder="Service ID" type="text" id="search" name="service_id" class="form-control">
+                                    <div class="text-danger">{{$errors->first('service_id')}}</div>
+                                    <div class="text-danger">{{$errors->first('service')}}</div>
                                 </div>
                                     <button type="submit" class="col-xs-2 col-md-2 btn btn-success">ค้นหา</button>
                                 {{--</div>--}}
