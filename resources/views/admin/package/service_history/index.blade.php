@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <div class="col-xs-12 col-md-12">
+            <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
@@ -36,8 +36,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="col-xs-12 col-md-12">{{$packages->links()}}</div>
             </div>
+            <div class="col-xs-12 col-md-12">{{$packages->links()}}</div>
         </div>
     </div>
     @endsection

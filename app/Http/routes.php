@@ -53,6 +53,7 @@ Route::group(['middleware'=>'web'],function(){
         Route::resource('package/service_history','Admin\ServiceHistoryController');
         Route::resource('package','Admin\PackageController');
         Route::resource('package_price','Admin\PackagePriceController');
+        Route::resource('members','Admin\MemberController');
 
     });
 });

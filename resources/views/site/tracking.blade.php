@@ -59,12 +59,12 @@
                         {{--</div>--}}
                     {{--</div>--}}
                 </div>
-                {{--<div class="col-xs-12 col-md-12">--}}
+                <div class="row">
                     <div id="dvMap" style="width:100%; height:500px;"></div>
-                {{--</div>--}}
+                </div>
             </div>
     </div>
-            <form id="tracking_form" action="{{route('package.store')}}" method="POST">
+        <form id="tracking_form" action="{{route('package.store')}}" method="POST">
                 {{csrf_field()}}
                 <div style="margin-top:20px;" class="panel panel-default">
                     <div class="panel-heading">
@@ -199,7 +199,7 @@
                     <button style="margin-bottom: 25px;" class="col-xs-12 col-md-offset-9 col-md-3 btn btn-success" type="submit">ยืนยันรายการ</button>
                 </div>
             </form>
-        </div>
+    </div>
 @endsection
 @section('script')
     <script>

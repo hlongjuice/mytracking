@@ -81,30 +81,45 @@
         </div>
         <div class="panel-body">
 
-                {{--Package-Price--}}
-                <div class="col-xs-12 col-md-4 admin-menu">
-                    <a href="{{route('admin.package_price.edit',$package_price->id)}}">
-                        <div class="icon">
-                            <i class="fa fa-bookmark"></i>
-                        </div>
-                        <div class="title">
-                            ตั้งราคาค่าบริการ
-                        </div>
-                        <div class="highlight bg-color-orange"></div>
-                    </a>
-                </div>
-                {{--Add New Member--}}
-                <div class="col-xs-12 col-md-4 admin-menu">
-                    <a href="{{route('member.create')}}">
-                        <div class="icon">
-                            <i class="fa fa-bookmark"></i>
-                        </div>
-                        <div class="title">
-                            เพิ่มผู้ใช้งาน
-                        </div>
-                        <div class="highlight bg-color-orange"></div>
-                    </a>
-                </div>
+            {{--Package-Price--}}
+            <div class="col-xs-12 col-md-4 admin-menu">
+                <a href="{{route('admin.package_price.edit',$package_price->id)}}">
+                    <div class="icon">
+                        <i class="fa fa-bookmark"></i>
+                    </div>
+                    <div class="title">
+                        ตั้งราคาค่าบริการ
+                    </div>
+                    <div class="highlight bg-color-orange"></div>
+                </a>
+            </div>
+            {{--Add New Member--}}
+            <div class="col-xs-12 col-md-4 admin-menu">
+                <a href="{{route('member.create')}}">
+                    <div class="icon">
+                        <i class="fa fa-bookmark"></i>
+                    </div>
+                    <div class="title">
+                        เพิ่มผู้ใช้งาน
+                    </div>
+                    <div class="highlight bg-color-orange"></div>
+                </a>
+            </div>
+            {{--View All Members--}}
+            <div class="col-xs-12 col-md-4 admin-menu">
+                <a href="{{route('admin.members.index')}}">
+                    <div class="icon">
+                        <i class="fa fa-bookmark"></i>
+                    </div>
+                    <div class="title">
+                        ข้อมูลสมาชิกทั้งหมด
+                    </div>
+                    <div class="highlight bg-color-orange"></div>
+                </a>
+            </div>
+
+
+
 
         </div>
     </div>

@@ -24,7 +24,7 @@
     @include('site.layouts.nav_bar')
     @yield('nav-bar')
 </section>
-<div class="container-fluid">
+<div class="main container-fluid">
 
     {{--Side Menu--}}
     <section id="side-menu">

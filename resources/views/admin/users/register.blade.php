@@ -1,7 +1,6 @@
 @extends('site.layouts.master_left_sidebar')
 @section('content')
-    <div class="col-xs-12">
-        <div class="panel panel-default">
+    <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title">
                     เพิ่มผู้ใช้งาน
@@ -117,6 +116,4 @@
                 </form>
             </div>
         </div>
-    </div>
-
-    @endsection
+@endsection

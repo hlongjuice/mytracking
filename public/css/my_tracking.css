@@ -3,10 +3,21 @@ body{
 }
 /* XS styling */
 @media (max-width: 740px) {
-    .container-fluid {
-        /*padding-left: 0 !important;*/
-        /*padding-right: 0 !important;*/
+    .landing-page{
+        padding-top:20% !important;
+        padding-bottom:25% !important;
     }
+}
+@media (max-width: 940px){
+    .landing-page{
+        padding-top:36% !important;
+        padding-bottom:40% !important;
+    }
+    .main.container-fluid{
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+    }
+
 }
 
 /* SM styling */
@@ -19,8 +30,10 @@ body{
 
 }
 .landing-page{
-    padding-top: 50px;
-    padding-bottom: 80px;
+    /*padding-top: 50px;*/
+    /*padding-bottom: 80px;*/
+    padding-top:7%;
+    padding-bottom: 12%;
     /*text-align: center;*/
     /*color: #f8f8f8;*/
     background: url('../images/background/landing_page1.jpg') no-repeat center center;
@@ -29,7 +42,7 @@ body{
 .landing-block{
     position: relative;
     padding-bottom: 40%;
-    padding-top: 17%;
+    padding-top: 10%;
 }
 
 
