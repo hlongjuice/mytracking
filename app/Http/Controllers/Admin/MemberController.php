@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Models\CarDetail;
 use App\Models\Member;
 use App\Models\MemberType;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -29,7 +28,9 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        $member_types=MemberType::all();
+//        if(Auth::user()->member_type_id==3)
+        return view('admin.users.register')->with('member_types',$member_types);
     }
 
     /**
@@ -79,7 +80,28 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $member=Member::where('id',$id)->first();
+
+        $member->member_type_id=$request->input('member_type');
+        $member->name=$request->input('name');
+        $member->surname=$request->input('surname');
+        $member->gender=$request->input('gender');
+        $member->tel=$request->input('tel');
+        $member->address=$request->input('address');
+        $member->province=$request->input('province');
+        $member->postcode=$request->input('postcode');
+        $member->save();
+        if($member->member_type_id==2){
+
+            $car= CarDetail::where('driver_id',$member->id)->first();
+            $car->driver_id=$member->id;
+            $car->car=$request->input('car');
+            $car->color=$request->input('car_color');
+            $car->plate=$request->input('car_plate');
+            $car->model=$request->input('car_model');
+            $car->save();
+        }
+        return redirect()->route('home');
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Models\Member;
 use App\Models\MemberType;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\CarDetail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -28,12 +29,8 @@ class MemberController extends Controller
      */
     public function create()
     {
-        $member_types=MemberType::all();
         if(Auth::guest())
             return view('site.users.register');
-        else if(Auth::user()->member_type_id==3)
-            return view('admin.users.register')->with('member_types',$member_types);
-
         return view('/');
     }
 
@@ -57,8 +54,10 @@ class MemberController extends Controller
         ]);
         $member=new Member();
 
-        if(Auth::user()->member_type_id==3)//If Admin add new member,3 is Admin
+        if(Auth::user()->member_type_id==3){//If Admin add new member,3 is Admin
             $member->member_type_id=$request->input('member_type');
+        }
+
         else
             $member->member_type_id=1;//1 is normal member
 
@@ -72,6 +71,15 @@ class MemberController extends Controller
         $member->province=$request->input('province');
         $member->postcode=$request->input('postcode');
         $member->save();
+        if($member->member_type_id==2){
+            CarDetail::create([
+               'driver_id'=>$member->id,
+                'car'=>$request->input('car'),
+                'color'=>$request->input('car_color'),
+                'plate'=>$request->input('car_plate'),
+                'model'=>$request->input('car_model')
+            ]);
+        }
 
         return redirect()->route('home');
     }
@@ -97,7 +105,7 @@ class MemberController extends Controller
     {
         $member=Member::where('id',$id)->first();
 
-        return view('site.users.info')->with('member',$member);
+        return view('site.users.profile.edit')->with('member',$member);
     }
 
     /**

@@ -81,6 +81,10 @@ body{
     margin-bottom:20px;
     min-height: 101px;
 }
+/*Table*/
+.table>tbody>tr>td{
+    vertical-align: middle !important;
+}
 
 
 

@@ -95,7 +95,7 @@
             </div>
             {{--Add New Member--}}
             <div class="col-xs-12 col-md-4 admin-menu">
-                <a href="{{route('member.create')}}">
+                <a href="{{route('admin.members.create')}}">
                     <div class="icon">
                         <i class="fa fa-bookmark"></i>
                     </div>

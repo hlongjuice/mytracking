@@ -18,4 +18,8 @@ class Member extends Authenticatable
         return $this->belongsTo('App\Models\MemberType','member_type_id');
     }
 
+    public function carDetails(){
+        return $this->hasOne('App\Models\CarDetail','driver_id');
+    }
+
 }

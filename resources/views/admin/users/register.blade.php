@@ -7,8 +7,8 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" action="{{route('member.store')}}" method="POST">
-                    <input type="hidden" name="_method " value="PUT" >
+                <form id="register" class="form-horizontal" action="{{route('member.store')}}" method="POST">
+                    {{--<input type="hidden" name="_method " value="PUT" >--}}
                     {{ csrf_field() }}
 
                             <!-- Member Type-->
@@ -104,6 +104,40 @@
                         <label class="col-md-4 control-label" for="postcode">รหัสไปรษณีย์</label>
                         <div class="col-md-8">
                             <input id="postcode" name="postcode" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <!--Car-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="car">ลายละเอียดสำหรับขนส่งของ</label>
+                    </div>
+                    <!--Car-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="car">ยี้ห้อ</label>
+                        <div class="col-md-8">
+                            <input id="car" name="car" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <!--Car Model-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="car_model">รุ่น</label>
+                        <div class="col-md-8">
+                            <input id="car_model" name="car_model" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <!--Car color-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="car_color">สีรถ</label>
+                        <div class="col-md-8">
+                            <input id="car_color" name="car_color" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <!--Car Plate-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="car_plate">ป้ายทะเบียน</label>
+                        <div class="col-md-8">
+                            <input id="car_plate" name="car_plate" type="text" class="form-control">
                         </div>
                     </div>
                     <!-- Submit -->

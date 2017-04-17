@@ -3,30 +3,15 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title">
-                เพิ่มผู้ใช้งาน
+                แก้ไขข้อมูลส่วนตัว
             </div>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" action="{{route('admin.members.update',$member->id)}}" method="POST">
-                <input value="PUT" type="hidden" name="_method" >
+            <form class="form-horizontal" action="{{route('member.update',$member->id)}}" method="POST">
+                <input type="hidden" name="_method " value="PUT" >
                 {{ csrf_field() }}
-                        <!-- Member Type-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="member_type">กลุ่มผู้ใช้งาน</label>
-                    <div  class="col-md-8">
-                        <select id="member_type" name="member_type" class="form-control">
-                            @foreach($member_types as $member_type)
-                                <?php $selected='';?>
 
-                                @if($member->member_type_id==$member_type->id)
-                                    <?php $selected='selected';?>
-                                    @endif
-                                    <option {{$selected}} value="{{$member_type->id}}">{{$member_type->type}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <!-- Username-->
+                        <!-- Username-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="username">UserName</label>
                     <div class="col-md-8">
@@ -51,12 +36,12 @@
                 </div>
                 <!-- Multiple Radios -->
                 <?php
-                    $male='';
-                    $female='';
-                    if($member->gender=='male')
-                        $male='checked';
-                    else
-                        $female='checked';
+                $male='';
+                $female='';
+                if($member->gender=='male')
+                    $male='checked';
+                else
+                    $female='checked';
                 ?>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="gender">เพศ</label>
@@ -103,44 +88,8 @@
                         <input value="{{$member->postcode}}" id="postcode" name="postcode" type="text" class="form-control">
                     </div>
                 </div>
-                {{--Car Details--}}
-                        <!--Car-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="car">ลายละเอียดสำหรับขนส่งของ</label>
-                </div>
-                <!--Car-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="car">ยี้ห้อ</label>
-                    <div class="col-md-8">
-                        <input value="{{$member->carDetails->car}}" id="car" name="car" type="text" class="form-control">
-                    </div>
-                </div>
-                <!--Car Model-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="car_model">รุ่น</label>
-                    <div class="col-md-8">
-                        <input value="{{$member->carDetails->model}}" id="car_model" name="car_model" type="text" class="form-control">
-                    </div>
-                </div>
-
-                <!--Car color-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="car_color">สีรถ</label>
-                    <div class="col-md-8">
-                        <input value="{{$member->carDetails->color}}" id="car_color" name="car_color" type="text" class="form-control">
-                    </div>
-                </div>
-
-                <!--Car Plate-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="car_plate">ป้ายทะเบียน</label>
-                    <div class="col-md-8">
-                        <input value="{{$member->carDetails->plate}}" id="car_plate" name="car_plate" type="text" class="form-control">
-                    </div>
-                </div>
                 <!-- Submit -->
                 <div class="form-group">
-                    {{--<label class="col-md-4 control-label" for="submit">สมัครสมาชิก</label>--}}
                     <div class="col-xs-12 col-md-offset-8 col-md-4">
                         <button type="submit" id="submit" name="submit" class="btn btn-success btn-block">บันทึก</button>
                     </div>
@@ -148,4 +97,5 @@
             </form>
         </div>
     </div>
+
 @endsection

@@ -10,7 +10,9 @@
             <div class="text-center">
                 <img width="100px" height="100px" src="{{asset('images/members/member_profile.png')}}">
                 <div class="member-detail">
-                    <p>{{Auth::user()->name}} {{Auth::user()->surname}}</p><br>
+                    <p>{{Auth::user()->name}} {{Auth::user()->surname}}</p>
+
+                    <a href="{{route('member.edit',Auth::user()->id)}}" class="">แก้ไขข้อมูลส่วนตัว</a>
                     <a href="{{url('/logout')}}" class="btn btn-danger btn-block">ออกจากระบบ</a>
                 </div>
             </div>

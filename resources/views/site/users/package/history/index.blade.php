@@ -13,12 +13,12 @@
                         <thead>
                         <tr>
                             <th>ลำดับ</th>
-                            <th>รหัสบริการ</th>
                             <th>สถานะ</th>
+                            <th>รหัสบริการ</th>
                             <th><span class="text-nowrap">ที่อยู่ผู้ส่ง</span></th>
                             <th>ที่อยู่ผู้รับ</th>
                             <th>วันที่</th>
-                            <th></th>
+                            <th>ลายละเอียด</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -27,8 +27,8 @@
                         @foreach($packages as $package)
                             <tr>
                                 <td>{{$row_number}}</td>
-                                <td>{{$package->service_id}}</td>
                                 <td><h4><span class="label label-{{$package->status->color}}">{{$package->status->title}}</span></h4></td>
+                                <td>{{$package->service_id}}</td>
                                 <td>{{$package->sender_address}}</td>
                                 <td>{{$package->receiver_address}}</td>
                                 <td>{{$package->updated_at}}</td>
