@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Member;
+use App\Models\MemberType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -61,7 +62,12 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        //
+        $member=Member::with('memberType')->where('id',$id)->first();
+        $member_type=MemberType::all();
+        return view('admin.users.edit')->with([
+            'member'=>$member,
+            'member_types'=>$member_type
+        ]);
     }
 
     /**
@@ -84,6 +90,7 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $member=Member::destroy($id);
+        return redirect()->route('admin.members.index');
     }
 }
