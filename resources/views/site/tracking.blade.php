@@ -74,7 +74,7 @@
                     </div>
                     <div class="panel-body">
                         {{--Lat/Lng--}}
-                        <table class="table">
+                        <table class="hidden table">
                             <thead>
                             <tr class="active">
                                 <th></th>
@@ -82,7 +82,7 @@
                                 <th>ลองติจูด</th>
                             </tr>
                             </thead>
-
+{{----}}
                             <tbody>
                             <tr>
                                 <td>ต้นทาง</td>
@@ -99,23 +99,28 @@
                         <div class="line-dot"></div>
                         <table class="table">
                             <tbody>
-                            {{--Distance--}}
+                            {{--Distance Per Price--}}
                             <tr class="border-none">
+                                <td>อัตรค่าบริการต่อระยะทาง</td>
+                                <td><input class="form-control" readonly value="{{$package_price->distance_price}}"  name="distance_price" id="distance_price" type="text"></td>
+                                <td>บาท/กม.</td>
+                            </tr>
+                            {{--Distance Per Weight--}}
+                            <tr class="border-none">
+                                <td>อัตรค่าบริการต่อน้ำหนัก</td>
+                                <td><input class="form-control" readonly value="{{$package_price->weight_price}}"  name="weight_price" id="weight_price" type="text"></td>
+                                <td>บาท/กก.</td>
+                            </tr>
+                            {{--Distance--}}
+                            <tr>
                                 <td>ระยะทาง</td>
                                 <td><input class="form-control" readonly value=""  name="distance" id="distance" type="text"></td>
                                 <td>กิโลเมตร</td>
                             </tr>
-                            {{--Distance Per Price--}}
-                            <tr>
-                                <td>อัตรค่าบริการต่อระยะทาง</td>
-                                <td><input class="form-control" readonly value=""  name="distance_price" id="distance_price" type="text"></td>
-                                <td>บาท/กม.</td>
-                            </tr>
-                            {{--Distance Per Weight--}}
-                            <tr>
-                                <td>อัตรค่าบริการต่อน้ำหนัก</td>
-                                <td><input class="form-control" readonly value=""  name="weight_price" id="weight_price" type="text"></td>
-                                <td>บาท/กก.</td>
+                            <tr class="border-none">
+                                <td>น้ำหนัก</td>
+                                <td><input class="form-control" readonly value=""  name="result_weight" id="result_weight" type="text"></td>
+                                <td>กิโลกรัม</td>
                             </tr>
                             {{--Total Price--}}
                             <tr>

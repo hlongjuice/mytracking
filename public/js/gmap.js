@@ -7,8 +7,7 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var lat_start=document.getElementById('txtLatStart');
 var lng_start=document.getElementById('txtLngStart');
-var result_weight_price=document.getElementById('weight_price');
-var result_distance_price=document.getElementById('distance_price');
+var result_weight=document.getElementById('result_weight');
 var result_distance=document.getElementById('distance');
 var result_current_distance=document.getElementById('current_distance');
 var result_total_price=document.getElementById('total_price');
@@ -106,8 +105,8 @@ function getRoute(){
 
                 /*Calculate Result*/
                 result_distance.value=distance;
-                result_distance_price.value=distance_price;
-                result_weight_price.value=weight_price;
+                //result_distance_price.value=distance_price;
+                result_weight.value=document.getElementById("weight").value;
                 result_total_price.value=total_price;
                 if(result_current_distance != null)
                 {
@@ -128,9 +127,6 @@ function getCurrentlyRoute(){
     getRoute();
 }
 
-function getDirection(){
-
-}
 /*Way Points*/
 function getWayPoints(direction_result){
     var waypoints=document.getElementById('driver_current_position');
@@ -185,4 +181,16 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setContent(browserHasGeolocation ?
         'Error: The Geolocation service failed.' :
         'Error: Your browser doesn\'t support geolocation.');
+}
+
+/*Driver Function*/
+function showSenderLocationMap(){
+    var sender_place= new google.maps.LatLng(lat_start.value, lng_start.value);
+    var mapOptions = {
+        zoom: 7,
+        center:sender_place
+    };
+
+    /****Create a map and center it on Bangkok*****/
+    var map = new google.maps.Map(document.getElementById('dvMap'), mapOptions);
 }
