@@ -55,8 +55,8 @@
                 <input value="{{$package->lng_start}}" id="txtLngStart" type="text" class="hidden">
                 <input value="{{$package->lat_end}},{{$package->lng_end}}" id="txtDestination" type="text" name="destination" class="hidden">
                 <input value="{{$package->staff_lat}},{{$package->staff_lng}}" id="txtSource" type="text" name="txtSource" class="hidden">
-                <input hidden value="{{$package->product_weight}}" type="number" id="weight" name="weight" class="hidden">
-                <input value="0" type="number" id="weight" name="weight" class="hidden">
+                <input value="{{$package->product_weight}}" type="number" id="weight" name="weight" class="hidden">
+                {{--<input value="0" type="number" id="weight" name="weight" class="hidden">--}}
             </div>
 
             <div class="ln_solid"></div>
@@ -64,6 +64,10 @@
             {{--Map--}}
             <div class="row">
                 <div id="dvMap" style="width:100%; height:500px;"></div>
+            </div>
+            {{--Sender Place --}}
+            <div class="row">
+                <div id="senderLocationMap" style="width:100%; height:500px;"></div>
             </div>
         </div>
     </div>
@@ -103,8 +107,20 @@
                 <div class="line-dot"></div>
                 <table class="table">
                     <tbody>
-                    {{--Distance--}}
+                    {{--Distance Per Price--}}
                     <tr class="border-none">
+                        <td>อัตรค่าบริการต่อระยะทาง</td>
+                        <td><input class="form-control" readonly value="{{$package_price->distance_price}}"  name="distance_price" id="distance_price" type="text"></td>
+                        <td>บาท/กม.</td>
+                    </tr>
+                    {{--Distance Per Weight--}}
+                    <tr class="border-none">
+                        <td>อัตรค่าบริการต่อน้ำหนัก</td>
+                        <td><input class="form-control" readonly value="{{$package_price->weight_price}}"  name="weight_price" id="weight_price" type="text"></td>
+                        <td>บาท/กก.</td>
+                    </tr>
+                    {{--Distance--}}
+                    <tr>
                         <td>ระยะทางทั้งหมด</td>
                         <td><input class="form-control" readonly value=""  name="distance" id="distance" type="text"></td>
                         <td>กิโลเมตร</td>
@@ -115,19 +131,12 @@
                         <td><input class="form-control" readonly value=""  name="current_distance" id="current_distance" type="text"></td>
                         <td>กิโลเมตร</td>
                     </tr>
-                    {{--Distance Per Price--}}
-                    <tr>
-                        <td>อัตรค่าบริการต่อระยะทาง</td>
-                        <td><input class="form-control" readonly value=""  name="distance_price" id="distance_price" type="text"></td>
-                        <td>บาท/กม.</td>
+                    {{--Product Weight--}}
+                    <tr class="border-none">
+                        <td>น้ำหนัก</td>
+                        <td><input class="form-control" readonly value=""  name="result_weight" id="result_weight" type="text"></td>
+                        <td>กิโลกรัม</td>
                     </tr>
-                    {{--Distance Per Weight--}}
-                    <tr>
-                        <td>อัตรค่าบริการต่อน้ำหนัก</td>
-                        <td><input class="form-control" readonly value=""  name="weight_price" id="weight_price" type="text"></td>
-                        <td>บาท/กก.</td>
-                    </tr>
-
                     {{--Total Price--}}
                     <tr>
                         <td>รวมค่าใช่จ่าย</td>
@@ -256,15 +265,11 @@
     </form>
 @endsection
 @section('script')
-
-    {{--Google Map Javascript Api--}}
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5p15SZ4mJm6ZqoIa5STnINkW-OcEBNCw&libraries=geometry,places"></script>
-    {{--Custom Google map api for this project--}}
-    <script src="{{ asset('js/gmap.js')}}"></script>
     <script type="text/javascript">
         /*Setting Service Price from database for Calculating*/
         var weight_per_price="{{$package_price->weight_price}}";
         var distance_per_price="{{$package_price->distance_price}}";
         getCurrentlyRoute();
+        showSenderLocationMap();
     </script>
 @endsection

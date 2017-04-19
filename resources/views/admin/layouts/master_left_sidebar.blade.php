@@ -13,6 +13,8 @@
     <link href="{{ asset('css/jquery-ui.theme.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.structure.min.css')}}" rel="styleshhet">
     <link href="{{asset('css/my_tracking.css')}}" rel="stylesheet">
+    {{--Map Icon--}}
+    <link href="{{asset('css/map-icon/map-icons.css')}}" rel="stylesheet">
     {{--Yamm is Mega Menu--}}
     <link href="{{ asset('css/yamm-3/yamm.css') }}" rel="stylesheet">
 
@@ -58,6 +60,13 @@
 {{--<script src="{{asset('js/jquery.min.js')}}"></script>--}}
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('js/jquery-ui.min.js')}}"></script>
+{{--Google Map Javascript Api--}}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5p15SZ4mJm6ZqoIa5STnINkW-OcEBNCw&libraries=geometry,places"></script>
+{{--Map Icon--}}
+<script src="{{asset('js/map-icon/map-icons.js')}}"></script>
+{{--Custom Google map api for this project--}}
+<script src="{{ asset('js/gmap.js')}}"></script>
+
 
 @yield('script')
 <script src="{{asset('template/gentelella/build/js/custom.js')}}"></script>

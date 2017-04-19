@@ -12,20 +12,24 @@ var result_distance=document.getElementById('distance');
 var result_current_distance=document.getElementById('current_distance');
 var result_total_price=document.getElementById('total_price');
 var driver_marker=new google.maps.Marker;
-google.maps.event.addDomListener(window, 'load', function () {
-    new google.maps.places.SearchBox(document.getElementById('txtSource'));
-    new google.maps.places.SearchBox(document.getElementById('txtDestination'));
-    directionsDisplay = new google.maps.DirectionsRenderer({ 'draggable': true });
-});
+var sender_location_marker=new google.maps.Marker;
 var bangkok = new google.maps.LatLng(13.7251097, 100.3529072);
 var mapOptions = {
     zoom: 7,
     center: bangkok
 };
+var direction_markers=new google.maps.Marker;
+/*Location Search Auto Complete*/
+google.maps.event.addDomListener(window, 'load', function () {
+    new google.maps.places.SearchBox(document.getElementById('txtSource'));
+    new google.maps.places.SearchBox(document.getElementById('txtDestination'));
+    directionsDisplay = new google.maps.DirectionsRenderer({ 'draggable': true });
+});
 
 /****Create a map and center it on Bangkok*****/
 var map = new google.maps.Map(document.getElementById('dvMap'), mapOptions);
 
+/*Show Route*/
 function getRoute(){
     directionsDisplay.setMap(map);
     //*********DIRECTIONS AND ROUTE**********************//
@@ -40,14 +44,41 @@ function getRoute(){
         origin: source,
         destination: destination,
         travelMode: google.maps.TravelMode.DRIVING,
-        //travelMode:'WALKING'
-        //waypoints:[waypts]
-
-        //optimizeWaypoints: true
     };
     directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);//set directions on map
+            //directionsDisplay.setOptions( { suppressMarkers: true } );
+            console.log(directionsDisplay);
+            var leg = response.routes[ 0 ].legs[ 0 ];
+            var start = new Marker({
+                map: map,
+                position: leg.start_location,
+                icon: {
+                    path: MAP_PIN,
+                    fillColor: 'green',
+                    fillOpacity: 1,
+                    strokeColor: '',
+                    strokeWeight: 0
+                },
+                map_icon_label: '<span class="map-icon map-icon-taxi-stand"></span>',
+                draggable:true
+            });
+            var end = new Marker({
+                map: map,
+                position: leg.end_location,
+                icon: {
+                    path: MAP_PIN,
+                    fillColor: 'red',
+                    fillOpacity: 1,
+                    strokeColor: '',
+                    strokeWeight: 0
+                },
+                map_icon_label: '<span class="map-icon map-icon-store"></span>',
+                draggable:true
+            });
+
+            //direction_markers.setMap(null);
         }
         getWayPoints(response);
     });
@@ -62,7 +93,7 @@ function getRoute(){
         var result_lng_end=document.getElementById('lng_end');
 
 
-        console.log(direction);
+        //console.log(direction);
         document.getElementById('txtSource').value=direction.routes[0].legs[0].start_address;
         document.getElementById('txtDestination').value=direction.routes[0].legs[0].end_address;
 
@@ -84,7 +115,6 @@ function getRoute(){
         else{
             start_position=new google.maps.LatLng(lat_start.value,lng_start.value);
         }
-
         service.getDistanceMatrix({
             origins:[start_position,current_position],
             destinations:[destination],
@@ -93,7 +123,6 @@ function getRoute(){
             avoidHighways: false,
             avoidTolls: false
         }, function (response, status) {
-
             if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
                 var distance = response.rows[0].elements[0].distance.text;
                 var curent_distance=response.rows[1].elements[0].distance.text;
@@ -116,14 +145,13 @@ function getRoute(){
                 alert("Unable to find the distance via road.");
             }
         });
-
     });
-
 }
 
 /*Route After Submit*/
 function getCurrentlyRoute(){
     directionsDisplay = new google.maps.DirectionsRenderer({ 'draggable': false });
+    //directionsDisplay = new google.maps.DirectionsRenderer({ 'draggable': true });
     getRoute();
 }
 
@@ -187,10 +215,50 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function showSenderLocationMap(){
     var sender_place= new google.maps.LatLng(lat_start.value, lng_start.value);
     var mapOptions = {
-        zoom: 7,
+        zoom: 13,
         center:sender_place
     };
+    var driver_marker=new google.maps.Marker();
+    var test_marker=new google.maps.Marker;
+    /****Create a map and center it on Sender Place*****/
 
-    /****Create a map and center it on Bangkok*****/
-    var map = new google.maps.Map(document.getElementById('dvMap'), mapOptions);
+    var sender_map = new google.maps.Map(document.getElementById('senderLocationMap'), mapOptions);
+    test_marker.setMap(sender_map);
+    test_marker.setPosition(sender_place);
+    //console.log(test_marker);
+    //var marker = new Marker({
+    //    map: sender_map,
+    //    position: sender_place,
+    //    icon: {
+    //        path: SQUARE_PIN,
+    //        fillColor: 'red',
+    //        fillOpacity: 1,
+    //        strokeColor: '',
+    //        strokeWeight: 0
+    //    },
+    //    map_icon_label: '<span class="map-icon map-icon-store"></span>'
+    //});
+    google.maps.event.addListener(sender_map, 'click', function(event) {
+        addDriverMarker(event.latLng);
+    });
+
+    /*Add Driver Position Marker*/
+    function addDriverMarker(location){
+        driver_marker.setMap(null);//remove old marker
+        driver_marker= new Marker({
+            map: sender_map,
+            position: location,
+            icon: {
+                path: SQUARE_PIN,
+                fillColor: 'green',
+                fillOpacity: 1,
+                strokeColor: '',
+                strokeWeight: 0
+            },
+            map_icon_label: '<span class="map-icon map-icon-taxi-stand"></span>',
+            draggable:true
+        });
+        console.log(driver_marker);
+    }
 }
+

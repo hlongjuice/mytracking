@@ -117,6 +117,7 @@
                                 <td><input class="form-control" readonly value=""  name="distance" id="distance" type="text"></td>
                                 <td>กิโลเมตร</td>
                             </tr>
+                            {{--Product Weight--}}
                             <tr class="border-none">
                                 <td>น้ำหนัก</td>
                                 <td><input class="form-control" readonly value=""  name="result_weight" id="result_weight" type="text"></td>
@@ -212,8 +213,4 @@
         var weight_per_price="{{$package_price->weight_price}}";
         var distance_per_price="{{$package_price->distance_price}}";
     </script>
-    {{--Google Map Javascript Api--}}
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5p15SZ4mJm6ZqoIa5STnINkW-OcEBNCw&libraries=geometry,places"></script>
-    {{--Custom Google map api for this project--}}
-    <script src="{{ asset('js/gmap.js')}}"></script>
 @endsection
