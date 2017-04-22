@@ -19,6 +19,8 @@ var mapOptions = {
     center: bangkok
 };
 var direction_markers=new google.maps.Marker;
+var home_icon=null;
+var driver_icon=null;
 /*Location Search Auto Complete*/
 google.maps.event.addDomListener(window, 'load', function () {
     new google.maps.places.SearchBox(document.getElementById('txtSource'));
@@ -43,42 +45,17 @@ function getRoute(){
     var request = {
         origin: source,
         destination: destination,
-        travelMode: google.maps.TravelMode.DRIVING,
+        travelMode: google.maps.TravelMode.DRIVING
     };
     directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);//set directions on map
-            //directionsDisplay.setOptions( { suppressMarkers: true } );
+            var options1={icon:home_icon};
+            var options2={icon:driver_icon};
+            directionsDisplay.setOptions({
+             //   markerOptions:options1
+            });
             console.log(directionsDisplay);
-            var leg = response.routes[ 0 ].legs[ 0 ];
-            var start = new Marker({
-                map: map,
-                position: leg.start_location,
-                icon: {
-                    path: MAP_PIN,
-                    fillColor: 'green',
-                    fillOpacity: 1,
-                    strokeColor: '',
-                    strokeWeight: 0
-                },
-                map_icon_label: '<span class="map-icon map-icon-taxi-stand"></span>',
-                draggable:true
-            });
-            var end = new Marker({
-                map: map,
-                position: leg.end_location,
-                icon: {
-                    path: MAP_PIN,
-                    fillColor: 'red',
-                    fillOpacity: 1,
-                    strokeColor: '',
-                    strokeWeight: 0
-                },
-                map_icon_label: '<span class="map-icon map-icon-store"></span>',
-                draggable:true
-            });
-
-            //direction_markers.setMap(null);
         }
         getWayPoints(response);
     });
@@ -212,32 +189,21 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 /*Driver Function*/
-function showSenderLocationMap(){
-    var sender_place= new google.maps.LatLng(lat_start.value, lng_start.value);
+function showSenderLocationMap() {
+    var sender_place = new google.maps.LatLng(lat_start.value, lng_start.value);
     var mapOptions = {
         zoom: 13,
-        center:sender_place
+        center: sender_place
     };
-    var driver_marker=new google.maps.Marker();
-    var test_marker=new google.maps.Marker;
+    var driver_marker = new google.maps.Marker();
+    var test_marker = new google.maps.Marker;
     /****Create a map and center it on Sender Place*****/
 
     var sender_map = new google.maps.Map(document.getElementById('senderLocationMap'), mapOptions);
     test_marker.setMap(sender_map);
     test_marker.setPosition(sender_place);
-    //console.log(test_marker);
-    //var marker = new Marker({
-    //    map: sender_map,
-    //    position: sender_place,
-    //    icon: {
-    //        path: SQUARE_PIN,
-    //        fillColor: 'red',
-    //        fillOpacity: 1,
-    //        strokeColor: '',
-    //        strokeWeight: 0
-    //    },
-    //    map_icon_label: '<span class="map-icon map-icon-store"></span>'
-    //});
+    test_marker.setIcon(home_icon);
+
     google.maps.event.addListener(sender_map, 'click', function(event) {
         addDriverMarker(event.latLng);
     });
@@ -245,19 +211,10 @@ function showSenderLocationMap(){
     /*Add Driver Position Marker*/
     function addDriverMarker(location){
         driver_marker.setMap(null);//remove old marker
-        driver_marker= new Marker({
-            map: sender_map,
-            position: location,
-            icon: {
-                path: SQUARE_PIN,
-                fillColor: 'green',
-                fillOpacity: 1,
-                strokeColor: '',
-                strokeWeight: 0
-            },
-            map_icon_label: '<span class="map-icon map-icon-taxi-stand"></span>',
-            draggable:true
-        });
+        driver_marker.setMap(sender_map);
+        driver_marker.setPosition(location);
+        driver_marker.setIcon(driver_icon);
+
         console.log(driver_marker);
     }
 }

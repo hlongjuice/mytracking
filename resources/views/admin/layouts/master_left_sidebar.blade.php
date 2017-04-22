@@ -47,7 +47,6 @@
     </section>
 
 
-</body>
 
 {{--Script--}}
 

@@ -66,11 +66,23 @@
                 <div id="dvMap" style="width:100%; height:500px;"></div>
             </div>
             {{--Sender Place --}}
+        </div>
+
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                จำลองระบบระบุตำแหน่งขนส่งของ<br>(คลิกบนแผนที่เพื่อระบุตำแหน่ง)
+            </div>
+        </div>
+        <div class="panel-body">
             <div class="row">
                 <div id="senderLocationMap" style="width:100%; height:500px;"></div>
             </div>
         </div>
     </div>
+
     {{--Package Info--}}
     <form id="tracking_form" action="{{route('package.store')}}" method="POST">
         {{csrf_field()}}
@@ -269,6 +281,13 @@
         /*Setting Service Price from database for Calculating*/
         var weight_per_price="{{$package_price->weight_price}}";
         var distance_per_price="{{$package_price->distance_price}}";
+        var home_icon={
+            url:'{{asset('images/map-icon/home2.svg')}}'
+//            size:icon_size
+        };
+        var driver_icon={
+            url:'{{asset('images/map-icon/truck4.svg')}}'
+        };
         getCurrentlyRoute();
         showSenderLocationMap();
     </script>
