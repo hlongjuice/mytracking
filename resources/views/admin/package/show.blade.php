@@ -283,12 +283,12 @@
         var distance_per_price="{{$package_price->distance_price}}";
         var home_icon={
             url:'{{asset('images/map-icon/home2.svg')}}'
-//            size:icon_size
         };
         var driver_icon={
             url:'{{asset('images/map-icon/truck4.svg')}}'
         };
-        getCurrentlyRoute();
+        getRoute();
+//        getCurrentlyRoute();
         showSenderLocationMap();
     </script>
 @endsection
