@@ -229,14 +229,30 @@
 @section('script')
     <script type="text/javascript">
         /*Setting Service Price from database for Calculating*/
+        var driver_icon=null;
+        /*Setting Service Price from database for Calculating*/
         var weight_per_price="{{$package_price->weight_price}}";
         var distance_per_price="{{$package_price->distance_price}}";
         var home_icon={
             url:'{{asset('images/map-icon/home3.svg')}}'
         };
-        var driver_icon={
+        var p2_driver_icon={
             url:'{{asset('images/map-icon/delivery-truck.svg')}}'
         };
+
+        var package_icon={
+            url:'{{asset('images/map-icon/package.svg')}}'
+        };
+        if('{{$package->status_id}}'==1 || '{{$package->status_id}}'==2){
+            driver_icon={
+                url:'{{asset('images/map-icon/package3.svg')}}'
+            };
+        }
+        else{
+            driver_icon={
+                url:'{{asset('images/map-icon/delivery-truck.svg')}}'
+            };
+        }
         getRoute();
 //        getCurrentlyRoute();
         showSenderLocationMap();

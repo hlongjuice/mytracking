@@ -12,6 +12,7 @@
 
             <div class="panel-body">
                 <div class="form-horizontal">
+
                     <!-- Package Status-->
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="status">สถานะการบริการ</label>
@@ -20,7 +21,6 @@
 
                                 <?php $selected='';?>
                                 @foreach($statuses as $status)
-                                    {{--{{$status}}--}}
                                     @if($status->id==$package->status->id)
                                         <?php $selected='selected';?>
                                     @else
@@ -33,15 +33,28 @@
                         </div>
                     </div>
 
+                    {{--LatLng Start Position--}}
                     <input value="{{$package->lat_start}}" id="txtLatStart" type="text" class="hidden">
                     <input value="{{$package->lng_start}}" id="txtLngStart" type="text" class="hidden">
+
+                    {{--Start Position--}}
+                    @if(in_array($package->status_id,[1,2]))
+                        <input value="{{$package->lat_start}},{{$package->lng_start}}" id="txtSource" type="text" name="txtSource" class="hidden">
+                    @elseif(in_array($package->status,[3,4]))
+                        <input value="{{$package->staff_lat}},{{$package->staff_lng}}" id="txtSource" type="text" name="txtSource" class="hidden">
+                    @endif
+
+                    {{--Destination Position--}}
                     <input value="{{$package->lat_end}},{{$package->lng_end}}" id="txtDestination" type="text" name="destination" class="hidden">
-                    <input value="{{$package->staff_lat}},{{$package->staff_lng}}" id="txtSource" type="text" name="txtSource" class="hidden">
+
+                    {{--Product Weight--}}
                     <input value="{{$package->product_weight}}" type="number" id="weight" name="weight" class="hidden">
-                    {{--<input value="0" type="number" id="weight" name="weight" class="hidden">--}}
+
                 </div>
                 <div class="ln_solid"></div>
+
                 {{--Sender Location--}}
+                @if(in_array($package->status_id,[1,2]))
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">
@@ -54,10 +67,11 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 <input id="input_origin" value="{{$package->staff_lat}},{{$package->staff_lng}}" class="hidden">
                 <input id="input_destination" value="{{$package->lat_start}},{{$package->lng_start}}" class="hidden">
-                <input type="text" value="" id="driver_position_lat" name="driver_position_lat" class="hidden" >
-                <input type="text" value="" id="driver_position_lng" name="driver_position_lng" class="hidden">
+                <input type="text" value="{{$package->staff_lat}}" id="driver_position_lat" name="driver_position_lat" class="hidden" >
+                <input type="text" value="{{$package->staff_lng}}" id="driver_position_lng" name="driver_position_lng" class="hidden">
                 <div class="form-group">
                     <div class="col-xs-12 col-md-5">
                         <button type="submit" class="btn btn-success btn-block">บันทึก</button>
@@ -230,15 +244,32 @@
 @endsection
 @section('script')
     <script type="text/javascript">
+        var driver_icon=null;
         /*Setting Service Price from database for Calculating*/
         var weight_per_price="{{$package_price->weight_price}}";
         var distance_per_price="{{$package_price->distance_price}}";
         var home_icon={
             url:'{{asset('images/map-icon/home3.svg')}}'
         };
-        var driver_icon={
+        var p2_driver_icon={
             url:'{{asset('images/map-icon/delivery-truck.svg')}}'
         };
+
+        var package_icon={
+            url:'{{asset('images/map-icon/package.svg')}}'
+        };
+        if('{{$package->status_id}}'==1 || '{{$package->status_id}}'==2){
+            driver_icon={
+                url:'{{asset('images/map-icon/package3.svg')}}'
+            };
+        }
+        else{
+            driver_icon={
+                url:'{{asset('images/map-icon/delivery-truck.svg')}}'
+            };
+            /*For Changing Driver Position in status 3*/
+            setDriverPosition();
+        }
         getRoute();
         //        getCurrentlyRoute();
         getProcessTwoRoute();

@@ -59,7 +59,7 @@ class ServiceHistoryController extends Controller
     {
         $package=Package::where('id',$id)->first();
         $package_price=PackagePrice::find(1);
-        $statuses=PackageStatus::whereBetween('id',[1,2])->get();
+        $statuses=PackageStatus::all();
         $driver=Member::where('id',$package->staff_id)->first();
         return view('driver.package.service_history.show')->with(
             [

@@ -95,10 +95,31 @@ class PackageController extends Controller
         ],[
             'driver_position_lat.required'=>'กรุณาระบุตำแหน่งรถส่งของ'
         ]);
-        if($request->input('status')==2){
-            $package=Package::with('status')->where('id',$id)->first();
+        $package=Package::with('status')->where('id',$id)->first();
+        $driver_position=explode(',',$request->input('txtSource'));
+
+        /*Remove Driver Id if Status is 1*/
+        if($request->input('status')==1){
+            $package->staff_id=null;
+            $package->save();
+        }
+        elseif($request->input('status')==2){
             $package->staff_lat=trim($request->input('driver_position_lat'));
             $package->staff_lng=trim($request->input('driver_position_lng'));
+            $package->status_id=$request->input('status');
+            $package->staff_id=Auth::user()->id;
+            $package->save();
+        }
+        elseif($request->input('status')==3){
+            $package->staff_lat=trim($driver_position[0]);
+            $package->staff_lng=trim($driver_position[1]);
+            $package->status_id=$request->input('status');
+            $package->staff_id=Auth::user()->id;
+            $package->save();
+        }
+        else{
+            $package->staff_lat=$package->lat_end;
+            $package->staff_lng=$package->lng_end;
             $package->status_id=$request->input('status');
             $package->staff_id=Auth::user()->id;
             $package->save();
