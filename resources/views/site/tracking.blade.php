@@ -213,10 +213,10 @@
         var weight_per_price="{{$package_price->weight_price}}";
         var distance_per_price="{{$package_price->distance_price}}";
         var home_icon={
-            url:'{{asset('images/map-icon/home2.svg')}}'
+            url:'{{asset('images/map-icon/home3.svg')}}'
         };
         var driver_icon={
-            url:'{{asset('image/map-icon/truck4.svg')}}'
+            url:'{{asset('images/map-icon/delivery-truck.svg')}}'
         }
     </script>
 @endsection

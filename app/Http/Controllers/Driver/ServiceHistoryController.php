@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Driver;
 
-use App\Models\Member;
-use App\Models\Package;
 use Illuminate\Http\Request;
+use App\Models\Package;
 use Auth;
+use App\Models\PackagePrice;
+use App\Models\PackageStatus;
+use App\Models\Member;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,11 +18,16 @@ class ServiceHistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $packages=Package::with('status')->where('staff_id',Auth::user()->id)->orderBy('updated_at','desc')->paginate(15);
-        return view('admin.package.service_history.index')->with('packages',$packages);
+        return view('driver.package.service_history.index')->with('packages',$packages);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -50,7 +57,17 @@ class ServiceHistoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $package=Package::where('id',$id)->first();
+        $package_price=PackagePrice::find(1);
+        $statuses=PackageStatus::whereBetween('id',[1,2])->get();
+        $driver=Member::where('id',$package->staff_id)->first();
+        return view('driver.package.service_history.show')->with(
+            [
+                'package'=>$package,
+                'driver'=>$driver,
+                'package_price'=>$package_price,
+                'statuses'=>$statuses
+            ]);
     }
 
     /**

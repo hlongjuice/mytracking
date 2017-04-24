@@ -6,13 +6,13 @@
                 My Tracking
             </div>
         </div>
-        <form method="post" action="{{route('admin.package.update',$package->id)}}">
+        <form method="post" action="{{route('driver.package.update',$package->id)}}">
             <input value="PUT" type="hidden" name="_method" >
             {{csrf_field()}}
 
-        <div class="panel-body">
-            <div class="form-horizontal">
-                <!-- Package Status-->
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <!-- Package Status-->
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="status">สถานะการบริการ</label>
                         <div class="col-md-5">
@@ -23,56 +23,47 @@
                                     {{--{{$status}}--}}
                                     @if($status->id==$package->status->id)
                                         <?php $selected='selected';?>
-                                        @else
+                                    @else
                                         <?php $selected='';?>
                                     @endif
-                                        <option {{$selected}} value="{{$status->id}}">{{$status->title}}</option>
-                                    @endforeach
+                                    <option {{$selected}} value="{{$status->id}}">{{$status->title}}</option>
+                                @endforeach
                             </select>
-                        </div>
-                    </div>
-                    {{--Change Currently Position--}}
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="driver_current_position">ทดลองเปลี่ยนตำแหน่งรถส่งของ</label>
-                        <div class="col-md-5">
-                            <select class="form-control" name="driver_current_position" id="driver_current_position" onchange="putMarker()">
-
-                            </select>
+                            <h4><span class="text-danger">{{$errors->first('driver_position_lat')}}</span></h4>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-xs-12 col-md-offset-3 col-md-5">
-                            <button type="submit" class="btn btn-success btn-block">บันทึก</button>
+                    <input value="{{$package->lat_start}}" id="txtLatStart" type="text" class="hidden">
+                    <input value="{{$package->lng_start}}" id="txtLngStart" type="text" class="hidden">
+                    <input value="{{$package->lat_end}},{{$package->lng_end}}" id="txtDestination" type="text" name="destination" class="hidden">
+                    <input value="{{$package->staff_lat}},{{$package->staff_lng}}" id="txtSource" type="text" name="txtSource" class="hidden">
+                    <input value="{{$package->product_weight}}" type="number" id="weight" name="weight" class="hidden">
+                    {{--<input value="0" type="number" id="weight" name="weight" class="hidden">--}}
+                </div>
+                <div class="ln_solid"></div>
+                {{--Sender Location--}}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            จำลองระบบระบุตำแหน่งรถขนส่งของ<br>(คลิกบนแผนที่เพื่อระบุตำแหน่ง)
                         </div>
                     </div>
-
-
-
-                <input value="{{$package->lat_start}}" id="txtLatStart" type="text" class="hidden">
-                <input value="{{$package->lng_start}}" id="txtLngStart" type="text" class="hidden">
-                <input value="{{$package->lat_end}},{{$package->lng_end}}" id="txtDestination" type="text" name="destination" class="hidden">
-                <input value="{{$package->staff_lat}},{{$package->staff_lng}}" id="txtSource" type="text" name="txtSource" class="hidden">
-                <input value="{{$package->product_weight}}" type="number" id="weight" name="weight" class="hidden">
-                {{--<input value="0" type="number" id="weight" name="weight" class="hidden">--}}
-            </div>
-            <div class="ln_solid"></div>
-            {{--Sender Location--}}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        จำลองระบบระบุตำแหน่งรถขนส่งของ<br>(คลิกบนแผนที่เพื่อระบุตำแหน่ง)
+                    <div class="panel-body">
+                        <div class="row">
+                            <div id="processTwoMap" style="width:100%; height:500px;"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div id="senderLocationMap" style="width:100%; height:500px;"></div>
+                <input id="input_origin" value="{{$package->staff_lat}},{{$package->staff_lng}}" class="hidden">
+                <input id="input_destination" value="{{$package->lat_start}},{{$package->lng_start}}" class="hidden">
+                <input type="text" value="" id="driver_position_lat" name="driver_position_lat" class="hidden" >
+                <input type="text" value="" id="driver_position_lng" name="driver_position_lng" class="hidden">
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-5">
+                        <button type="submit" class="btn btn-success btn-block">บันทึก</button>
                     </div>
                 </div>
             </div>
-        </div>
-            <input type="text" value="" id="driver_position_lat" name="driver_position_lat" >
-            <input type="text" value="" id="driver_position_lng" name="driver_position_lng" >
         </form>
 
     </div>
@@ -167,53 +158,6 @@
                 </table>
             </div>
         </div>
-        {{--Driver Info--}}
-        @if($package->status_id==1)
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        ข้อมูลคนส่งของ
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <p>รอการติดต่อกลับจากผู้ให้บริการ</p>
-                </div>
-            </div>
-        @else
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        ข้อมูลคนส่งของ
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="form-horizontal">
-                        {{--Name--}}
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-md-3">ชื่อ/สกุล</label>
-                            <div class="col-xs-12 col-md-6">
-                                <input readonly value="{{$driver->name}}" id="driver_name" type="text" name="driver_name" class="form-control">
-                            </div>
-                        </div>
-                        {{--Phone--}}
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-md-3">เบอร์โทร</label>
-                            <div class="col-xs-12 col-md-6">
-                                <input readonly value="{{$driver->surname}}" id="driver_phone" type="text" name="driver_phone" class="form-control">
-                            </div>
-                        </div>
-                        {{--Address--}}
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-md-3">ที่อยู่</label>
-                            <div class="col-xs-12 col-md-6">
-                                <textarea readonly value="{{$driver->address}}" class="form-control" name="driver_address" id="driver_address" form="tracking_form"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        @endif
         {{--Sender Info--}}
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -296,7 +240,8 @@
             url:'{{asset('images/map-icon/delivery-truck.svg')}}'
         };
         getRoute();
-//        getCurrentlyRoute();
-        showSenderLocationMap();
+        //        getCurrentlyRoute();
+        getProcessTwoRoute();
+//        showSenderLocationMap();
     </script>
 @endsection

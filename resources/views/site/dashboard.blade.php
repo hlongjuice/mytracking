@@ -46,7 +46,7 @@
         <div class="panel-body">
                 {{--Service Order--}}
                 <div class="col-xs-12 col-md-4 admin-menu">
-                    <a href="{{route('admin.package.index')}}">
+                    <a href="{{route('driver.package.index')}}">
                         <div class="icon">
                             <i class="fa fa-bookmark"></i>
                         </div>
@@ -58,7 +58,7 @@
                 </div>
                 {{--Service History--}}
                 <div class="col-xs-12 col-md-4 admin-menu">
-                    <a href="{{route('admin.package.service_history.index')}}">
+                    <a href="{{route('driver.package.service_history.index')}}">
                         <div class="icon">
                             <i class="fa fa-bookmark"></i>
                         </div>

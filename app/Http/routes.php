@@ -46,7 +46,11 @@ Route::group(['middleware'=>'web'],function(){
     /*Package*/
     Route::resource('package','Site\PackageController');
 
-
+/**********Driver***********************/
+    Route::group(['prefix'=>'driver'],function(){
+        Route::resource('package/service_history','Driver\ServiceHistoryController');
+        Route::resource('package','Driver\PackageController');
+    });
 /**************Admin*********************/
     Route::group(['prefix'=>'admin'],function() {
         Route::get('/','Admin\HomeController@index')->name('admin.index');

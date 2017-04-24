@@ -69,3 +69,40 @@ directionsDisplay.addListener('directions_changed', function() {
     }
 
 });
+
+/*Put Marker on the Map*/
+function putMarker(){
+    var waypoints=document.getElementById('driver_current_position');
+    var driver_position=waypoints.options[waypoints.selectedIndex].text;
+    driver_position = driver_position.slice(1,-1).split(',');
+    driver_position=new google.maps.LatLng(driver_position[0],driver_position[1]);
+
+    driver_marker.setMap(null); //remove all old marker if exists
+    driver_marker.setMap(map); //set map for marker
+    driver_marker.setPosition(driver_position); //set position of driver to map
+
+}
+
+function getCurrent(){
+
+    map = new google.maps.Map(document.getElementById('dvMap'), mapOptions);
+    directionsDisplay.setMap(map);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            map.setCenter(pos);
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
+}
+

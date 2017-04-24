@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Driver;
 
-use App\Models\Package;
-use App\Models\PackagePrice;
-use App\Models\PackageStatus;
 use Illuminate\Http\Request;
+use App\Models\Package;
 use App\Models\Member;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Auth;
+use App\Http\Controllers\Controller;
+use App\Models\PackagePrice;
+use App\Models\PackageStatus;
 
 class PackageController extends Controller
 {
@@ -22,11 +22,10 @@ class PackageController extends Controller
     {
         $this->middleware('auth');
     }
-
     public function index()
     {
-        $packages=Package::orderBy('updated_at','desc')->paginate(10);
-        return view('admin.package.index')->with('packages',$packages);
+        $packages=Package::where('status_id',1)->orderBy('updated_at','desc')->paginate(10);
+        return view('driver.package.index')->with('packages',$packages);
     }
 
     /**
@@ -60,9 +59,9 @@ class PackageController extends Controller
     {
         $package=Package::where('id',$id)->first();
         $package_price=PackagePrice::find(1);
-        $statuses=PackageStatus::all();
+        $statuses=PackageStatus::whereBetween('id',[1,2])->get();
         $driver=Member::where('id',$package->staff_id)->first();
-        return view('admin.package.show')->with(
+        return view('driver.package.show')->with(
             [
                 'package'=>$package,
                 'driver'=>$driver,
@@ -91,20 +90,21 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $driver_position=$request->input('driver_current_position');
-        $driver_position=substr($driver_position,1,-1);
-        $driver_position=explode(',',$driver_position);
-
-        $package=Package::with('status')->where('id',$id)->first();
-        $package->staff_lat=trim($driver_position[0]);
-        $package->staff_lng=trim($driver_position[1]);
-        $package->status_id=$request->input('status');
-        $package->staff_id=Auth::user()->id;
-        $package->save();
-
-        return redirect()->route('admin.package.index');
+        $this->validate($request,[
+           'driver_position_lat'=>'required'
+        ],[
+            'driver_position_lat.required'=>'กรุณาระบุตำแหน่งรถส่งของ'
+        ]);
+        if($request->input('status')==2){
+            $package=Package::with('status')->where('id',$id)->first();
+            $package->staff_lat=trim($request->input('driver_position_lat'));
+            $package->staff_lng=trim($request->input('driver_position_lng'));
+            $package->status_id=$request->input('status');
+            $package->staff_id=Auth::user()->id;
+            $package->save();
+        }
+        return redirect()->route('home');
     }
-
     /**
      * Remove the specified resource from storage.
      *
