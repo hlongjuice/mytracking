@@ -40,7 +40,7 @@
                     {{--Start Position--}}
                     @if(in_array($package->status_id,[1,2]))
                         <input value="{{$package->lat_start}},{{$package->lng_start}}" id="txtSource" type="text" name="txtSource" class="hidden">
-                    @elseif(in_array($package->status,[3,4]))
+                    @elseif(in_array($package->status_id,[3,4]))
                         <input value="{{$package->staff_lat}},{{$package->staff_lng}}" id="txtSource" type="text" name="txtSource" class="hidden">
                     @endif
 
@@ -267,8 +267,6 @@
             driver_icon={
                 url:'{{asset('images/map-icon/delivery-truck.svg')}}'
             };
-            /*For Changing Driver Position in status 3*/
-            setDriverPosition();
         }
         getRoute();
         //        getCurrentlyRoute();
