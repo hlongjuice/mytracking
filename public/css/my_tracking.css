@@ -98,3 +98,15 @@ body{
 .member-detail{
     margin-top:15px;
 }
+.driver-details-body{
+}
+.driver-details-body .row{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.footer{
+    margin-top:20px;
+    min-height:20px;
+    /*background-color: #222;*/
+    /*border-color: #080808;*/
+}

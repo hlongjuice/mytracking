@@ -179,72 +179,79 @@
                 </table>
             </div>
         </div>
-        {{--Sender Info--}}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    ข้อมูลผู้ส่ง
+        {{--Sender And Receiver Info--}}
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                {{--Sender Info--}}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            ข้อมูลผู้ส่ง
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            {{--Name--}}
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-md-3">ชื่อ/สกุล</label>
+                                <div class="col-xs-12 col-md-6">
+                                    <input readonly value="{{$package->sender}}" id="sender_name" type="text" name="sender_name" class="form-control">
+                                </div>
+                            </div>
+                            {{--Phone--}}
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-md-3">เบอร์โทร</label>
+                                <div class="col-xs-12 col-md-6">
+                                    <input readonly value="{{$package->sender_phone}}" id="sender_phone" type="text" name="sender_phone" class="form-control">
+                                </div>
+                            </div>
+                            {{--Address--}}
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-md-3">ที่อยู่</label>
+                                <div class="col-xs-12 col-md-6">
+                                    <textarea  readonly class="form-control" name="sender_address" id="sender_address" form="tracking_form">{{$package->sender_address}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="form-horizontal">
-                    {{--Name--}}
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-md-3">ชื่อ/สกุล</label>
-                        <div class="col-xs-12 col-md-6">
-                            <input readonly value="{{$package->sender}}" id="sender_name" type="text" name="sender_name" class="form-control">
+            <div class="col-xs-12 col-md-6">
+                {{--Receiver Info--}}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            ข้อมูลผู้รับ
                         </div>
                     </div>
-                    {{--Phone--}}
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-md-3">เบอร์โทร</label>
-                        <div class="col-xs-12 col-md-6">
-                            <input readonly value="{{$package->sender_phone}}" id="sender_phone" type="text" name="sender_phone" class="form-control">
-                        </div>
-                    </div>
-                    {{--Address--}}
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-md-3">ที่อยู่</label>
-                        <div class="col-xs-12 col-md-6">
-                            <textarea  readonly class="form-control" name="sender_address" id="sender_address" form="tracking_form">{{$package->sender_address}}</textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{--Receiver Info--}}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    ข้อมูลผู้รับ
-                </div>
-            </div>
-            <div class="panel-body">
-                <div class="form-horizontal">
-                    {{--Name--}}
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-md-3">ชื่อ/สกุล</label>
-                        <div class="col-xs-12 col-md-6">
-                            <input readonly value="{{$package->receiver}}" id="receiver_name" type="text" name="receiver_name" class="form-control">
-                        </div>
-                    </div>
-                    {{--Phone--}}
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-md-3">เบอร์โทร</label>
-                        <div class="col-xs-12 col-md-6">
-                            <input readonly value="{{$package->receiver_phone}}" id="receiver_phone" type="text" name="receiver_phone" class="form-control">
-                        </div>
-                    </div>
-                    {{--Address--}}
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-md-3">ที่อยู่</label>
-                        <div class="col-xs-12 col-md-6">
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            {{--Name--}}
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-md-3">ชื่อ/สกุล</label>
+                                <div class="col-xs-12 col-md-6">
+                                    <input readonly value="{{$package->receiver}}" id="receiver_name" type="text" name="receiver_name" class="form-control">
+                                </div>
+                            </div>
+                            {{--Phone--}}
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-md-3">เบอร์โทร</label>
+                                <div class="col-xs-12 col-md-6">
+                                    <input readonly value="{{$package->receiver_phone}}" id="receiver_phone" type="text" name="receiver_phone" class="form-control">
+                                </div>
+                            </div>
+                            {{--Address--}}
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-md-3">ที่อยู่</label>
+                                <div class="col-xs-12 col-md-6">
                                             <textarea readonly class="form-control" name="receiver_address" id="receiver_address" form="tracking_form">{{$package->receiver_address}}
                                             </textarea>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
-
             </div>
         </div>
     </form>

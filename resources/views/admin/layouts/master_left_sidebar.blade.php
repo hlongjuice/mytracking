@@ -28,7 +28,7 @@
         @yield('nav-bar')
     </section>
 
-
+<div class="container-fluid">
     {{--Side Menu--}}
     <section id="side-menu">
         <div class="col-xs-12 col-md-3">
@@ -38,12 +38,15 @@
             @yield('side_menu_bottom')
         </div>
     </section>
-
     {{--Main Content--}}
     <section id="main-content">
         <div class="col-xs-12 col-md-9">
             @yield('content')
         </div>
+    </section>
+</div>
+    <section id="footer">
+        @include('admin.layouts.footer')
     </section>
 
 

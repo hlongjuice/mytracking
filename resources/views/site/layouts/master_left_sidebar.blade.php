@@ -45,6 +45,9 @@
         </div>
     </section>
 </div>
+<section id="footer">
+    @include('site.layouts.footer')
+</section>
 
 
 
