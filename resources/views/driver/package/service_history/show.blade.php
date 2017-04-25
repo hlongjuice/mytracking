@@ -1,4 +1,5 @@
 @extends('admin.layouts.master_left_sidebar')
+
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -17,6 +18,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="status">สถานะการบริการ</label>
                         <div class="col-md-5">
+                            @if($package->status_id!=4)
                             <select class="form-control" name="status" id="status">
 
                                 <?php $selected='';?>
@@ -29,6 +31,9 @@
                                     <option {{$selected}} value="{{$status->id}}">{{$status->title}}</option>
                                 @endforeach
                             </select>
+                            @else
+                                <h4><span class="label label-{{$package->status->color}}">{{$package->status->title}}</span></h4>
+                                @endif
                             <h4><span class="text-danger">{{$errors->first('driver_position_lat')}}</span></h4>
                         </div>
                     </div>
@@ -72,11 +77,13 @@
                 <input id="input_destination" value="{{$package->lat_start}},{{$package->lng_start}}" class="hidden">
                 <input type="text" value="{{$package->staff_lat}}" id="driver_position_lat" name="driver_position_lat" class="hidden" >
                 <input type="text" value="{{$package->staff_lng}}" id="driver_position_lng" name="driver_position_lng" class="hidden">
+                @if($package->status_id!=4)
                 <div class="form-group">
                     <div class="col-xs-12 col-md-5">
                         <button type="submit" class="btn btn-success btn-block">บันทึก</button>
                     </div>
                 </div>
+                    @endif
             </div>
         </form>
 
@@ -107,7 +114,7 @@
             </div>
             <div class="panel-body">
                 {{--Lat/Lng--}}
-                <table class="table">
+                <table class="hidden table">
                     <thead>
                     <tr class="active">
                         <th></th>
@@ -242,6 +249,11 @@
         </div>
     </form>
 @endsection
+
+@section('side_menu_top')
+    @include('admin.layouts.icon_details')
+    @endsection
+
 @section('script')
     <script type="text/javascript">
         var driver_icon=null;
@@ -256,17 +268,22 @@
         };
 
         var package_icon={
-            url:'{{asset('images/map-icon/package.svg')}}'
+            url:'{{asset('images/map-icon/package2.svg')}}'
         };
         if('{{$package->status_id}}'==1 || '{{$package->status_id}}'==2){
             driver_icon={
-                url:'{{asset('images/map-icon/package3.svg')}}'
+                url:'{{asset('images/map-icon/package2.svg')}}'
+            };
+        }
+        else if('{{$package->status_id}}'==3){
+            driver_icon={
+                url:'{{asset('images/map-icon/delivery-truck.svg')}}'
             };
         }
         else{
             driver_icon={
-                url:'{{asset('images/map-icon/delivery-truck.svg')}}'
-            };
+                url:'{{asset('images/map-icon/success.svg')}}'
+            }
         }
         getRoute();
         //        getCurrentlyRoute();

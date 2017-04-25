@@ -207,6 +207,9 @@
             </form>
     </div>
 @endsection
+@section('side_menu_top')
+    @include('site.layouts.icon_details')
+    @endsection
 @section('script')
     <script>
         /*Setting Service Price from database for Calculating*/
@@ -216,7 +219,7 @@
             url:'{{asset('images/map-icon/home3.svg')}}'
         };
         var driver_icon={
-            url:'{{asset('images/map-icon/delivery-truck.svg')}}'
+            url:'{{asset('images/map-icon/package2.svg')}}'
         }
     </script>
 @endsection

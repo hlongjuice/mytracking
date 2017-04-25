@@ -226,10 +226,16 @@
         </div>
     </form>
 @endsection
+@section('side_menu_top')
+    @include('admin.layouts.icon_details')
+@endsection
 @section('script')
     <script type="text/javascript">
         /*Setting Service Price from database for Calculating*/
         var driver_icon=null;
+        var p1_driver_icon={
+            url:'{{asset('images/map-icon/delivery-truck.svg')}}'
+        };
         /*Setting Service Price from database for Calculating*/
         var weight_per_price="{{$package_price->weight_price}}";
         var distance_per_price="{{$package_price->distance_price}}";
@@ -241,20 +247,24 @@
         };
 
         var package_icon={
-            url:'{{asset('images/map-icon/package.svg')}}'
+            url:'{{asset('images/map-icon/package2.svg')}}'
         };
         if('{{$package->status_id}}'==1 || '{{$package->status_id}}'==2){
             driver_icon={
-                url:'{{asset('images/map-icon/package3.svg')}}'
+                url:'{{asset('images/map-icon/package2.svg')}}'
             };
         }
-        else{
+        else if('{{$package->status_id}}'==3){
             driver_icon={
                 url:'{{asset('images/map-icon/delivery-truck.svg')}}'
             };
         }
+        else{
+            driver_icon={
+                url:'{{asset('images/mpa-icon/success.svg')}}'
+            };
+        }
         getRoute();
-//        getCurrentlyRoute();
         showSenderLocationMap();
     </script>
 @endsection

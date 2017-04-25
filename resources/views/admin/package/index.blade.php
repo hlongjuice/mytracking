@@ -17,7 +17,8 @@
                             <th>ที่อยู่ผู้ส่ง</th>
                             <th>ที่อยู่ผู้รับ</th>
                             <th>วันที่</th>
-                            <th></th>
+                            <th>ลายละเอียด</th>
+                            <th>ลบ</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +33,11 @@
                             <td>{{$package->receiver_address}}</td>
                             <td>{{$package->updated_at}}</td>
                             <td><a href="{{route('admin.package.show',$package->id)}}" class="btn btn-info">ดูลายละเอียด</a></td>
+                            <td><form onsubmit="return confirm('ต้องการจะลบรายการ ?')" action="{{route('admin.package.destroy',$package->id)}}" method="POST">
+                                    <input name="_method" type="hidden" value="delete">
+                                    {{csrf_field()}}
+                                    <button class="btn btn-danger" type="submit">ลบ</button>
+                                </form></td>
 
                         </tr>
                         <?php $row_number++?>

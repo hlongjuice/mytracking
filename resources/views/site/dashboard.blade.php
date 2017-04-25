@@ -80,7 +80,18 @@
             </div>
         </div>
         <div class="panel-body">
-
+            {{--All Packages--}}
+            <div class="col-xs-12 col-md-4 admin-menu">
+                <a href="{{route('admin.package.index')}}">
+                    <div class="icon">
+                        <i class="fa fa-bookmark"></i>
+                    </div>
+                    <div class="title">
+                        All Service Orders
+                    </div>
+                    <div class="highlight bg-color-orange"></div>
+                </a>
+            </div>
             {{--Package-Price--}}
             <div class="col-xs-12 col-md-4 admin-menu">
                 <a href="{{route('admin.package_price.edit',$package_price->id)}}">
@@ -93,6 +104,8 @@
                     <div class="highlight bg-color-orange"></div>
                 </a>
             </div>
+            {{--Clear Fix--}}
+            <div class="clearfix"></div>
             {{--Add New Member--}}
             <div class="col-xs-12 col-md-4 admin-menu">
                 <a href="{{route('admin.members.create')}}">
@@ -117,9 +130,6 @@
                     <div class="highlight bg-color-orange"></div>
                 </a>
             </div>
-
-
-
 
         </div>
     </div>

@@ -113,6 +113,7 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Package::destroy($id);
+        return redirect()->route('admin.package.index');
     }
 }

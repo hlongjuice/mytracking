@@ -25,7 +25,7 @@
                         <td>{{$member->name}}</td>
                         <td>{{$member->memberType->type}}</td>
                         <td><a href="{{route('admin.members.edit',$member->id)}}" class="btn btn-info">แก้ไข</a></td>
-                        <td><form method="post" action="{{route('admin.members.destroy',$member->id)}}">
+                        <td><form onsubmit="return confirm('ต้องการจะลบสมาชิก ?')" method="post" action="{{route('admin.members.destroy',$member->id)}}">
                                 {{csrf_field()}}
                                 <input name="_method" value="DELETE" type="hidden">
                                 <button type="submit" class="btn btn-danger">ลบ</button>

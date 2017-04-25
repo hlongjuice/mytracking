@@ -12,14 +12,18 @@ var result_current_distance=document.getElementById('current_distance');
 var result_total_price=document.getElementById('total_price');
 /*Marker Object*/
 var driver_marker=new google.maps.Marker;
+var driver_marker_move=true;
 var destination_marker= new google.maps.Marker();
+var destination_marker_move=true;
 var sender_marker=new google.maps.Marker();
 var p2_driver_marker=new google.maps.Marker();
+var p2_driver_marker_move=true;
 var p2_sender_marker=new google.maps.Marker();
 /*Icon*/
 var home_icon=null;
 var driver_icon=null;
 var package_icon=null;
+var p1_driver_icon=null;
 var p2_driver_icon=null;
 
 var bangkok = new google.maps.LatLng(13.7251097, 100.3529072);
@@ -63,13 +67,13 @@ function getRoute(){
             destination_marker.setMap(map);
             destination_marker.setPosition(position.end_location);
             destination_marker.setIcon(home_icon);
-            destination_marker.setDraggable(true);
+            destination_marker.setDraggable(destination_marker_move);
 
             driver_marker.setMap(null);
             driver_marker.setMap(map);
             driver_marker.setPosition(position.start_location);
             driver_marker.setIcon(driver_icon);
-            driver_marker.setDraggable(true);
+            driver_marker.setDraggable(driver_marker_move);
             calculatePrice();
         }
         else {
@@ -173,18 +177,6 @@ function getCurrentlyRoute(){
     getRoute();
 }
 
-/*Way Points*/
-function getWayPoints(direction_result){
-    var waypoints=document.getElementById('driver_current_position');
-    var my_route = direction_result.routes[0].legs[0];
-    if(waypoints!=null){
-        waypoints.options.lenght=0;
-        for (var i = 0; i < my_route.steps.length; i++) {
-            var waypoint=new Option(my_route.steps[i].start_location,my_route.steps[i].start_location);
-            waypoints.options.add(waypoint);
-        }
-    }
-}
 
 /*Driver Function*/
 function showSenderLocationMap() {
@@ -211,14 +203,13 @@ function showSenderLocationMap() {
         p1_driver_marker.setMap(null);//remove old marker
         p1_driver_marker.setMap(sender_map);
         p1_driver_marker.setPosition(location);
-        p1_driver_marker.setIcon(driver_icon);
+        p1_driver_marker.setIcon(p1_driver_icon);
         p1_driver_marker.setDraggable(true);
         driver_position_lat.value=location.lat();
         driver_position_lng.value=location.lng();
     }
     /*If marker dragged*/
     p1_driver_marker.addListener('dragend', function () {
-        console.log(p1_driver_marker.getPosition().lat());
         addDriverMarker(p1_driver_marker.getPosition());
     });
 }
@@ -255,7 +246,7 @@ function getProcessTwoRoute(){
             p2_driver_marker.setMap(p2_map);
             p2_driver_marker.setPosition(position.start_location);
             p2_driver_marker.setIcon(p2_driver_icon);
-            p2_driver_marker.setDraggable(true);
+            p2_driver_marker.setDraggable(p2_driver_marker_move);
         }
     })
 }
