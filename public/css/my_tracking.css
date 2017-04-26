@@ -19,6 +19,13 @@ body{
     }
 
 }
+@media(min-width: 940px){
+    .profile-image{
+        margin-left:50px;
+    }
+}
+
+
 
 /* SM styling */
 /*@media (min-width:750px){*/
@@ -107,6 +114,4 @@ body{
 .footer{
     margin-top:20px;
     min-height:20px;
-    /*background-color: #222;*/
-    /*border-color: #080808;*/
 }

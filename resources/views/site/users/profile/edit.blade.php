@@ -7,8 +7,8 @@
             </div>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" action="{{route('member.update',$member->id)}}" method="POST">
-                <input type="hidden" name="_method " value="PUT" >
+            <form files='true' enctype="multipart/form-data" class="form-horizontal" action="{{route('member.update',$member->id)}}" method="post">
+                <input value="PUT" type="hidden" name="_method" >
                 {{ csrf_field() }}
 
                         <!-- Username-->
@@ -32,6 +32,13 @@
                     <label class="col-md-4 control-label" for="surname">นามสกุล</label>
                     <div class="col-md-8">
                         <input value="{{$member->surname}}" id="surname" name="surname" type="text" class="form-control">
+                    </div>
+                </div>
+                {{--Image--}}
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="surname">นามสกุล</label>
+                    <div class="col-md-8">
+                        <input name="image" type="file">
                     </div>
                 </div>
                 <!-- Multiple Radios -->

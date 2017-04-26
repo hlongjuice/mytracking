@@ -9,7 +9,7 @@
         </div>
         <form method="post" action="{{route('driver.package.update',$package->id)}}">
             <input value="PUT" type="hidden" name="_method" >
-            {{csrf_field()}}
+            {{ csrf_field() }}
 
             <div class="panel-body">
                 <div class="form-horizontal">

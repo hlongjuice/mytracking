@@ -6,6 +6,9 @@ use App\Models\Member;
 use App\Models\MemberType;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use File;
+use Storage;
+use Intervention\Image\Facades\Image;
 use App\Http\Controllers\Controller;
 
 class MemberController extends Controller
@@ -90,16 +93,39 @@ class MemberController extends Controller
         $member->address=$request->input('address');
         $member->province=$request->input('province');
         $member->postcode=$request->input('postcode');
+        if($request->hasFile('image')){
+            if(File::exists($member->image)){
+                File::delete($member->image);
+            }
+            $path='images/members/'.$request->input('username');
+            $image='images/members/'.$request->input('username').'/'.$request->file('image')->getClientOriginalName();
+            $member->image=$image;
+            if(!File::exists($path)){
+                File::makeDirectory($path);
+            }
+            Image::make($request->file('image'))->resize(200,200)->save($image);
+        }
         $member->save();
         if($member->member_type_id==2){
 
             $car= CarDetail::where('driver_id',$member->id)->first();
-            $car->driver_id=$member->id;
-            $car->car=$request->input('car');
-            $car->color=$request->input('car_color');
-            $car->plate=$request->input('car_plate');
-            $car->model=$request->input('car_model');
-            $car->save();
+            if($car){
+                $car->driver_id=$member->id;
+                $car->car=$request->input('car');
+                $car->color=$request->input('car_color');
+                $car->plate=$request->input('car_plate');
+                $car->model=$request->input('car_model');
+                $car->save();
+            }
+            else{
+                $car=new CarDetail();
+                $car->driver_id=$member->id;
+                $car->car=$request->input('car');
+                $car->color=$request->input('car_color');
+                $car->plate=$request->input('car_plate');
+                $car->model=$request->input('car_model');
+                $car->save();
+            }
         }
         return redirect()->route('home');
     }

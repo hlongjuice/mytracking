@@ -6,6 +6,9 @@
     </div>
     <div class="driver-details-body panel-body">
 
+        <div align="center">
+            <img class="thumbnail" width="200px" height="200px" src="{{asset('images/members/member_profile.png')}}">
+        </div>
         {{--Name--}}
         <div class="row">
             <div class="col-xs-4">ชื่อ/สกุล </div>

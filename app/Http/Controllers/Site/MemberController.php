@@ -6,8 +6,10 @@ use App\Models\Member;
 use App\Models\MemberType;
 use Illuminate\Http\Request;
 use Auth;
+use Intervention\Image\Facades\Image;
 use App\Models\CarDetail;
 use App\Http\Requests;
+use File;
 use App\Http\Controllers\Controller;
 
 class MemberController extends Controller
@@ -54,10 +56,11 @@ class MemberController extends Controller
         ]);
         $member=new Member();
 
-        if(Auth::user()->member_type_id==3){//If Admin add new member,3 is Admin
-            $member->member_type_id=$request->input('member_type');
+        if(Auth::user()){
+            if(Auth::user()->member_type_id==3){//If Admin add new member,3 is Admin
+                $member->member_type_id=$request->input('member_type');
+            }
         }
-
         else
             $member->member_type_id=1;//1 is normal member
 
@@ -70,7 +73,17 @@ class MemberController extends Controller
         $member->address=$request->input('address');
         $member->province=$request->input('province');
         $member->postcode=$request->input('postcode');
+
+        if($request->hasFile('image')){
+            $path='images/members/'.$request->input('username');
+            $image='images/members/'.$request->input('username').'/'.$request->file('image')->getClientOriginalName();
+            $member->image=$image;
+            File::makeDirectory($path);
+            Image::make($request->file('image'))->resize(200,200)->save($image);
+        }
         $member->save();
+
+
         if($member->member_type_id==2){
             CarDetail::create([
                'driver_id'=>$member->id,
@@ -123,6 +136,20 @@ class MemberController extends Controller
         $member->gender=$request->input('gender');
         $member->tel=$request->input('tel');
         $member->address=$request->input('address');
+        $member->province=$request->input('province');
+        $member->postcode=$request->input('postcode');
+        if($request->hasFile('image')){
+            $path='images/members/'.$request->input('username');
+            $image='images/members/'.$request->input('username').'/'.$request->file('image')->getClientOriginalName();
+            $member->image=$image;
+            if(File::exists($member->image)){
+                File::delete($member->image);
+            }
+            if(!File::exists($path)){
+                File::makeDirectory($path);
+            }
+            Image::make($request->file('image'))->resize(200,200)->save($image);
+        }
         $member->save();
 
         return redirect()->route('home');

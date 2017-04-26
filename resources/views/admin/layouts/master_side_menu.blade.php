@@ -7,7 +7,13 @@
     <div class="panel-body">
         <div class="col-xs-12">
             <div class="text-center">
-                <img width="100px" height="100px" src="{{asset('images/members/member_profile.png')}}">
+                <div align="center">
+                    @if(Auth::user()->image==null)
+                        <img class="thumbnail" width="150px" height="150px" src="{{asset('images/members/member_profile.png')}}">
+                    @else
+                        <img class="thumbnail" width="150px" height="150px" src="{{asset(Auth::user()->image)}}">
+                    @endif
+                </div>
                 <div class="member-detail">
                     <p>{{Auth::user()->name}} {{Auth::user()->surname}}</p>
                     <a href="{{url('/logout')}}" class="btn btn-danger btn-block">ออกจากระบบ</a>
