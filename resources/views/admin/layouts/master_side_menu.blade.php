@@ -7,11 +7,14 @@
     <div class="panel-body">
         <div class="col-xs-12">
             <div class="text-center">
-                <div align="center">
+                <div class="profile" align="center">
                     @if(Auth::user()->image==null)
-                        <img class="thumbnail" width="150px" height="150px" src="{{asset('images/members/member_profile.png')}}">
+                        @if(Auth::user()->member_type_id==2)
+                            <img class="thumbnail" src="{{asset('images/members/driver.png')}}">
+                            @endif
+                        <img class="thumbnail" src="{{asset('images/members/member_profile.png')}}">
                     @else
-                        <img class="thumbnail" width="150px" height="150px" src="{{asset(Auth::user()->image)}}">
+                        <img class="thumbnail" src="{{asset(Auth::user()->image)}}">
                     @endif
                 </div>
                 <div class="member-detail">

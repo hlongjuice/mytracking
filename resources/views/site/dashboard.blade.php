@@ -12,24 +12,26 @@
                 <div class="col-xs-12 col-md-4 admin-menu">
                     <a href="{{route('package.index')}}">
                         <div class="icon">
-                            <i class="fa fa-bookmark"></i>
+                            <img src="{{asset('images/icons/package2.svg')}}">
+                            {{--<i class="fa fa-map-marker" aria-hidden="true"></i>--}}
                         </div>
                         <div class="title">
-                            Tracking
+                            ระบุเส้นทางการจัดส่ง
                         </div>
-                        <div class="highlight bg-color-orange"></div>
+                        <div class="highlight bg-color-blue"></div>
                     </a>
                 </div>
                 {{--Tracking Histroty--}}
                 <div class="col-xs-12 col-md-4 admin-menu">
                     <a href="{{route('package.history.index')}}">
                         <div class="icon">
-                            <i class="fa fa-bookmark"></i>
+                            <img src="{{asset('images/icons/tracking_history.svg')}}">
+                            {{--<i class="fa fa-bookmark"></i>--}}
                         </div>
                         <div class="title">
                             ประวัติการใช้บริการ
                         </div>
-                        <div class="highlight bg-color-orange"></div>
+                        <div class="highlight bg-color-blue"></div>
                     </a>
                 </div>
 
@@ -48,10 +50,11 @@
                 <div class="col-xs-12 col-md-4 admin-menu">
                     <a href="{{route('driver.package.index')}}">
                         <div class="icon">
-                            <i class="fa fa-bookmark"></i>
+                            <img src="{{asset('images/icons/service.svg')}}">
+                            {{--<i class="fa fa-bookmark"></i>--}}
                         </div>
                         <div class="title">
-                            Service Order
+                            รายการนำส่ง
                         </div>
                         <div class="highlight bg-color-orange"></div>
                     </a>
@@ -60,7 +63,8 @@
                 <div class="col-xs-12 col-md-4 admin-menu">
                     <a href="{{route('driver.package.service_history.index')}}">
                         <div class="icon">
-                            <i class="fa fa-bookmark"></i>
+                            <img src="{{asset('images/icons/service_history2.svg')}}">
+                            {{--<i class="fa fa-bookmark"></i>--}}
                         </div>
                         <div class="title">
                             ประวัติการให้บริการ
@@ -84,24 +88,26 @@
             <div class="col-xs-12 col-md-4 admin-menu">
                 <a href="{{route('admin.package.index')}}">
                     <div class="icon">
-                        <i class="fa fa-bookmark"></i>
+                        <img src="{{asset('images/icons/all_package.svg')}}">
+                        {{--<i class="fa fa-bookmark"></i>--}}
                     </div>
                     <div class="title">
-                        All Service Orders
+                        รายการนำส่งทั้งหมด
                     </div>
-                    <div class="highlight bg-color-orange"></div>
+                    <div class="highlight bg-color-red"></div>
                 </a>
             </div>
             {{--Package-Price--}}
             <div class="col-xs-12 col-md-4 admin-menu">
                 <a href="{{route('admin.package_price.edit',$package_price->id)}}">
                     <div class="icon">
-                        <i class="fa fa-bookmark"></i>
+                        <img src="{{asset('images/icons/gear.svg')}}">
+                        {{--<i class="fa fa-bookmark"></i>--}}
                     </div>
                     <div class="title">
                         ตั้งราคาค่าบริการ
                     </div>
-                    <div class="highlight bg-color-orange"></div>
+                    <div class="highlight bg-color-red"></div>
                 </a>
             </div>
             {{--Clear Fix--}}
@@ -110,24 +116,26 @@
             <div class="col-xs-12 col-md-4 admin-menu">
                 <a href="{{route('admin.members.create')}}">
                     <div class="icon">
-                        <i class="fa fa-bookmark"></i>
+                        <img src="{{asset('images/icons/user.svg')}}">
+                        {{--<i class="fa fa-bookmark"></i>--}}
                     </div>
                     <div class="title">
                         เพิ่มผู้ใช้งาน
                     </div>
-                    <div class="highlight bg-color-orange"></div>
+                    <div class="highlight bg-color-red"></div>
                 </a>
             </div>
             {{--View All Members--}}
             <div class="col-xs-12 col-md-4 admin-menu">
                 <a href="{{route('admin.members.index')}}">
                     <div class="icon">
-                        <i class="fa fa-bookmark"></i>
+                        <img src="{{asset('images/icons/group.svg')}}">
+                        {{--<i class="fa fa-bookmark"></i>--}}
                     </div>
                     <div class="title">
                         ข้อมูลสมาชิกทั้งหมด
                     </div>
-                    <div class="highlight bg-color-orange"></div>
+                    <div class="highlight bg-color-red"></div>
                 </a>
             </div>
 

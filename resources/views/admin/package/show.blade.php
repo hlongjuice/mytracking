@@ -257,6 +257,9 @@
 @endsection
 @section('side_menu_top')
     @include('admin.layouts.icon_details')
+    @if($package->status_id!=1)
+        @include('site.layouts.driver_info')
+    @endif
 @endsection
 @section('script')
     <script type="text/javascript">

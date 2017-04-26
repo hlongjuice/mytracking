@@ -6,8 +6,12 @@
     </div>
     <div class="driver-details-body panel-body">
 
-        <div align="center">
-            <img class="thumbnail" width="200px" height="200px" src="{{asset('images/members/member_profile.png')}}">
+        <div class="profile" align="center">
+            @if($driver->image!=null)
+                <img class="thumbnail" src="{{asset($driver->image)}}">
+            @else
+                <img class="thumbnail" src="{{asset('images/members/member_profile.png')}}">
+                @endif
         </div>
         {{--Name--}}
         <div class="row">

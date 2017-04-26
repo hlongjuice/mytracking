@@ -139,12 +139,13 @@ class MemberController extends Controller
         $member->province=$request->input('province');
         $member->postcode=$request->input('postcode');
         if($request->hasFile('image')){
-            $path='images/members/'.$request->input('username');
-            $image='images/members/'.$request->input('username').'/'.$request->file('image')->getClientOriginalName();
-            $member->image=$image;
             if(File::exists($member->image)){
                 File::delete($member->image);
             }
+            $path='images/members/'.$request->input('username');
+            $image='images/members/'.$request->input('username').'/'.$request->file('image')->getClientOriginalName();
+            $member->image=$image;
+
             if(!File::exists($path)){
                 File::makeDirectory($path);
             }
