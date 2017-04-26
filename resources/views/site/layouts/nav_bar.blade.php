@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{route('home')}}">Home</a>
+            <a class="navbar-brand" href="{{route('home')}}"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
