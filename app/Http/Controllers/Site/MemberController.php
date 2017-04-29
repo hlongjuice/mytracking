@@ -81,6 +81,18 @@ class MemberController extends Controller
             File::makeDirectory($path);
             Image::make($request->file('image'))->resize(200,200)->save($image);
         }
+        else{
+            if($member->member_type_id==2){
+                $member->image='images/members/driver.png';
+            }
+            else{
+                if($member->gender=='male')
+                    $member->image='images/members/boy.png';
+                else if($member->gender=='female')
+                    $member->image='images/members/girl.png';
+            }
+
+        }
         $member->save();
 
 

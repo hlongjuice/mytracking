@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\Package;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\PackagePrice;
@@ -23,12 +24,17 @@ class DashBoardController extends Controller
     public function index()
     {
 
-        $user_type=Auth::user()->memberType->id;
+        $user_type=Auth::user()->member_type_id;
 //        echo Auth::user()->memberType->id;
         if($user_type==3 || $user_type==2)
         {
             $package_price=PackagePrice::find(1);
-            return view('site.dashboard')->with('package_price',$package_price);
+            $package_count=Package::where('status_id',1)->count();
+            return view('site.dashboard')
+                ->with([
+                    'package_price'=>$package_price,
+                    'package_count'=>$package_count
+                    ]);
         }
 
         else

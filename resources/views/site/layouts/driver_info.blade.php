@@ -8,35 +8,54 @@
 
         <div class="profile" align="center">
             @if($driver->image!=null)
-                <img class="thumbnail" src="{{asset($driver->image)}}">
+                <img src="{{asset($driver->image)}}">
             @else
-                <img class="thumbnail" src="{{asset('images/members/member_profile.png')}}">
+                <img src="{{asset('images/members/member_profile.png')}}">
                 @endif
         </div>
         {{--Name--}}
         <div class="row">
-            <div class="col-xs-4">ชื่อ/สกุล </div>
-            <div class="col-xs-5">: {{$driver->name}} {{$driver->surname}}</div>
+            <div class="col-xs-5">
+                <h5>
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i> ชื่อ/สกุล
+                </h5>
+
+            </div>
+            <div class="col-xs-7 driver-details-result">: {{$driver->name}} {{$driver->surname}}</div>
         </div>
         {{--Car--}}
         <div class="row">
-            <div class="col-xs-4">รถที่ใช้ </div>
+            <div class="col-xs-5">
+                <h5>
+                    <i class="fa fa-truck" aria-hidden="true"></i>
+                    รถที่ใช้
+                </h5>
+
+            </div>
             @if($driver->carDetails)
-                <div class="col-xs-5">: {{$driver->carDetails->car}} {{$driver->carDetails->model}}</div>
+                <div class="col-xs-7 driver-details-result">: {{$driver->carDetails->car}} {{$driver->carDetails->model}}</div>
             @endif
         </div>
         {{--Car Colr--}}
         <div class="row">
-            <div class="col-xs-4">สี </div>
+            <div class="col-xs-5">
+                <h5>
+                    <i class="fa fa-adjust" aria-hidden="true"></i> สี
+                </h5>
+            </div>
             @if($driver->carDetails)
-                <div class="col-xs-5">: {{$driver->carDetails->color}}</div>
+                <div class="col-xs-7 driver-details-result">: {{$driver->carDetails->color}}</div>
             @endif
         </div>
         {{--Car Plate Number--}}
         <div class="row">
-            <div class="col-xs-4">ป้ายทะเบียน </div>
+            <div class="col-xs-5">
+                <h5>
+                    <i class="fa fa-tag" aria-hidden="true"></i> ป้ายทะเบียน
+                </h5>
+            </div>
             @if($driver->carDetails)
-                <div class="col-xs-5">: {{$driver->carDetails->plate}}</div>
+                <div class="col-xs-7 driver-details-result">: {{$driver->carDetails->plate}}</div>
             @endif
         </div>
     </div>

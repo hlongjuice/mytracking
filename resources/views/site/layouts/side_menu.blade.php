@@ -1,6 +1,6 @@
 @if(Auth::user())
 <div class="panel panel-default">
-    <div class="panel panel-heading">
+    <div class="panel-heading">
         <div class="panel-title">
             ผู้ใช้งาน
         </div>
@@ -10,9 +10,9 @@
             <div class="text-center">
                 <div class="profile" align="center">
                     @if(Auth::user()->image==null)
-                    <img class="thumbnail" src="{{asset('images/members/member_profile.png')}}">
+                    <img src="{{asset('images/members/member_profile.png')}}">
                         @else
-                        <img class="thumbnail"src="{{asset(Auth::user()->image)}}">
+                        <img src="{{asset(Auth::user()->image)}}">
                         @endif
                 </div>
 

@@ -11,23 +11,27 @@
 
             <div class="panel-body">
                 <div class="form-horizontal">
+
                     {{--Source Input--}}
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-md-3">ต้นทาง</label>
                             <div class="col-xs-12 col-md-6">
                                 <input id="txtSource" type="text" name="start" class="form-control">
+                                <div class="text-danger">{{$errors->first()}}</div>
                             </div>
                         </div>
+
                     {{--Destination Input--}}
                         <div class="form-group">
                             <label class="control-label col-xs-12 col-md-3">ปลายทาง</label>
                             <div class="col-xs-12 col-md-6">
                                 <input id="txtDestination" type="text" name="destination" class="form-control">
+                                <div class="text-danger">{{$errors->first()}}</div>
                             </div>
                         </div>
                     <div class="form-inline">
-
                     </div>
+
                     {{--Product Weight Input--}}
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-md-3">น้ำหนักสินค้า</label>
@@ -38,6 +42,7 @@
                             </div>
                         </div>
                     </div>
+
                     {{--Detail--}}
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-md-3">ลายละเอียด</label>
@@ -45,19 +50,14 @@
                             <textarea id="detail" name="detail" class="form-control"></textarea>
                         </div>
                     </div>
-
                     <div class="ln_solid"></div>
+
                     {{--Calculate Directions--}}
                     <div class="form-group">
                         <div class="col-xs-12 col-md-6 col-md-offset-3">
                             {{Form::button('ค้นหาเส้นทาง',['class'=>'btn btn-success','onclick'=>'getRoute()'])}}
                         </div>
                     </div>
-                    {{--<div class="form-group">--}}
-                        {{--<div class="col-xs-12 col-md-6 col-md-offset-3">--}}
-                            {{--{{Form::button('ตำแหน่ง',['class'=>'btn btn-success','onclick'=>'getCurrent()'])}}--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                 </div>
                 <div class="row">
                     <div id="dvMap" style="width:100%; height:500px;"></div>
@@ -82,7 +82,6 @@
                                 <th>ลองติจูด</th>
                             </tr>
                             </thead>
-{{----}}
                             <tbody>
                             <tr>
                                 <td>ต้นทาง</td>
@@ -97,8 +96,16 @@
                             </tbody>
                         </table>
                         <div class="line-dot"></div>
+
+                        {{--Results Tables--}}
                         <table class="table">
                             <tbody>
+                            {{--Start Price--}}
+                            <tr class="border-none">
+                                <td>อัตรค่าบริการเริ่มต้น</td>
+                                <td><input class="form-control" readonly value="{{$package_price->start_price}}"  name="start_price" id="start_price" type="text"></td>
+                                <td>บาท</td>
+                            </tr>
                             {{--Distance Per Price--}}
                             <tr class="border-none">
                                 <td>อัตรค่าบริการต่อระยะทาง</td>
@@ -147,21 +154,25 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-12 col-md-3">ชื่อ/สกุล</label>
                                 <div class="col-xs-12 col-md-6">
-                                    <input id="sender_name" type="text" name="sender_name" class="form-control">
+                                    <input value="{{Auth::user()->name}} {{Auth::user()->surname}}" id="sender_name" type="text" name="sender_name" class="form-control">
+                                    <div class="text-danger">{{$errors->first()}}</div>
                                 </div>
                             </div>
                             {{--Phone--}}
                             <div class="form-group">
                                 <label class="control-label col-xs-12 col-md-3">เบอร์โทร</label>
                                 <div class="col-xs-12 col-md-6">
-                                    <input id="sender_phone" type="text" name="sender_phone" class="form-control">
+                                    <input value="{{Auth::user()->tel}}" id="sender_phone" type="text" name="sender_phone" class="form-control">
+                                    <div class="text-danger">{{$errors->first()}}</div>
                                 </div>
                             </div>
                             {{--Address--}}
                             <div class="form-group">
                                 <label class="control-label col-xs-12 col-md-3">ที่อยู่</label>
                                 <div class="col-xs-12 col-md-6">
-                                    <textarea class="form-control" name="sender_address" id="sender_address" form="tracking_form"></textarea>
+                                    <textarea class="form-control" name="sender_address" id="sender_address" form="tracking_form">
+                                    </textarea>
+                                    <div class="text-danger">{{$errors->first()}}</div>
                                 </div>
                             </div>
                         </div>
@@ -181,6 +192,7 @@
                                 <label class="control-label col-xs-12 col-md-3">ชื่อ/สกุล</label>
                                 <div class="col-xs-12 col-md-6">
                                     <input id="receiver_name" type="text" name="receiver_name" class="form-control">
+                                    <div class="text-danger">{{$errors->first()}}</div>
                                 </div>
                             </div>
                             {{--Phone--}}
@@ -188,6 +200,7 @@
                                 <label class="control-label col-xs-12 col-md-3">เบอร์โทร</label>
                                 <div class="col-xs-12 col-md-6">
                                     <input id="receiver_phone" type="text" name="receiver_phone" class="form-control">
+                                    <div class="text-danger">{{$errors->first()}}</div>
                                 </div>
                             </div>
                             {{--Address--}}
@@ -195,6 +208,7 @@
                                 <label class="control-label col-xs-12 col-md-3">ที่อยู่</label>
                                 <div class="col-xs-12 col-md-6">
                                     <textarea class="form-control" name="receiver_address" id="receiver_address" form="tracking_form"></textarea>
+                                    <div class="text-danger">{{$errors->first()}}</div>
                                 </div>
                             </div>
                         </div>
@@ -213,6 +227,7 @@
 @section('script')
     <script>
         /*Setting Service Price from database for Calculating*/
+        var start_price="{{$package_price->start_price}}";
         var weight_per_price="{{$package_price->weight_price}}";
         var distance_per_price="{{$package_price->distance_price}}";
         var home_icon={

@@ -79,12 +79,25 @@ class PackagePriceController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->validate($request,[
+           'start_price'=>'numeric',
+            'weight_price'=>'numeric',
+            'distance_price'=>'numeric'
+        ],[
+            'numeric'=>'กรุณาระบุเป็นตัวเลขเท่านั้น'
+        ]);
         $package_price=PackagePrice::find(1);
+
+        if($request->input('start_price')!='')
+        $package_price->start_price=$request->input('start_price');
+        if($request->input('weight_price')!='')
         $package_price->weight_price=$request->input('weight_price');
+        if($request->input('distance_price')!='')
         $package_price->distance_price=$request->input('distance_price');
         $package_price->save();
 
-        return redirect()->route('admin.index');
+        return redirect()->route('home');
     }
 
     /**

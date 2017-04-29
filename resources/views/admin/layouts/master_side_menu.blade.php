@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel panel-heading">
+    <div class="panel-heading">
         <div class="panel-title">
             ผู้ใช้งาน
         </div>
@@ -10,11 +10,11 @@
                 <div class="profile" align="center">
                     @if(Auth::user()->image==null)
                         @if(Auth::user()->member_type_id==2)
-                            <img class="thumbnail" src="{{asset('images/members/driver.png')}}">
+                            <img  src="{{asset('images/members/driver.png')}}">
                             @endif
-                        <img class="thumbnail" src="{{asset('images/members/member_profile.png')}}">
+                        <img  src="{{asset('images/members/member_profile.png')}}">
                     @else
-                        <img class="thumbnail" src="{{asset(Auth::user()->image)}}">
+                        <img src="{{asset(Auth::user()->image)}}">
                     @endif
                 </div>
                 <div class="member-detail">

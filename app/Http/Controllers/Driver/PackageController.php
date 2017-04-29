@@ -101,6 +101,9 @@ class PackageController extends Controller
         /*Remove Driver Id if Status is 1*/
         if($request->input('status')==1){
             $package->staff_id=null;
+            $package->status_id=$request->input('status');
+            $package->staff_lat=$package->lat_start;
+            $package->staff_lng=$package->lng_start;
             $package->save();
         }
         elseif($request->input('status')==2){

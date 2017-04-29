@@ -25,6 +25,7 @@ var driver_icon=null;
 var package_icon=null;
 var p1_driver_icon=null;
 var p2_driver_icon=null;
+var start_price=0;
 
 var bangkok = new google.maps.LatLng(13.7251097, 100.3529072);
 var mapOptions = {
@@ -149,9 +150,9 @@ function calculatePrice(){
                 var curent_distance=response.rows[1].elements[0].distance.text;
                 var duration = response.rows[0].elements[0].duration.text;
                 var dvDistance = document.getElementById("dvDistance");
-                var distance_price=distance_per_price*parseInt(distance);
+                var distance_price=distance_per_price*parseFloat(distance);
                 var weight_price=weight_per_price*document.getElementById("weight").value;
-                var total_price=distance_price+weight_price;
+                var total_price=distance_price+weight_price+parseFloat(start_price);
 
                 /*Calculate Result*/
                 result_distance.value=distance;

@@ -1,24 +1,27 @@
-@extends('site.layouts.landing_page_master')
+@extends('site.layouts.landing_page_2')
 @section('content')
-        <div class="landing-block">
-            {{--<div class="">--}}
-            <div class="col-xs-12 col-md-7">
-                {{--<div id="dvMap" style="width:100%; height:500px;"></div>--}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="landing-page2-img hidden-xs hidden-sm col-md-7">
+                <img src="{{asset('images/background/246.jpg')}}">
             </div>
-            <div class="col-xs-12 col-md-5">
-                <div class="center-div">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                {{--MonsterBike<br>--}}
-                                Login
-                            </div>
+            <div class="landing-page2  col-md-5">
+                <div class="landing-page2-icon row">
+                    <img src="{{asset('images/icons/logo3.svg')}}">
+                    <h1 class="landing-page2-logo">MONSTER BIKE</h1>
+                    {{--<h4>"The real king of logistic"</h4>--}}
+                </div>
+                <div class="row">
+                    <div class="landing-page2-login-form col-xs-12">
+                        <div class="col-xs-12">
+
                         </div>
-                        <div class="panel-body">
+                        <div class="col-xs-12">
                             @if (Auth::guest())
                                 <form style="padding:0 5%;" role="form" method="POST" action="{{ url('/login') }}">
                                     {{ csrf_field() }}
 
+                                    {{--User Name--}}
                                     <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                         <label class="control-label">Username</label>
 
@@ -32,7 +35,7 @@
                                         @endif
                                         {{--</div>--}}
                                     </div>
-
+                                    {{--Password--}}
                                     <div class="form-group">
                                         <label class="control-label">Password</label>
 
@@ -46,17 +49,7 @@
                                         @endif
                                         {{--</div>--}}
                                     </div>
-
-                                    {{--<div class="form-group">--}}
-                                    {{--<div class="col-md-6 col-md-offset-4">--}}
-                                    {{--<div class="checkbox">--}}
-                                    {{--<label>--}}
-                                    {{--<input type="checkbox" name="remember"> Remember Me--}}
-                                    {{--</label>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-
+                                    {{--Login Buttom--}}
                                     <div class="form-group">
                                         {{--<div class="col-md-12">--}}
                                         <button type="submit" class="btn btn-primary btn-block">
@@ -66,6 +59,7 @@
                                         {{--<a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>--}}
                                         {{--</div>--}}
                                     </div>
+                                    {{--Link--}}
                                     <div class="form-group">
                                         <div class="text-right">
                                             <a href="{{route('package.search.index')}}">ตรวจสอบการส่งสินค้า</a>
@@ -85,14 +79,9 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
+    </div>
     @endsection
-
-@section('script')
-    {{--Google Map Javascript Api--}}
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5p15SZ4mJm6ZqoIa5STnINkW-OcEBNCw&libraries=geometry,places"></script>
-    {{--Custom Google map api for this project--}}
-    <script src="{{ asset('js/gmap.js')}}"></script>
-@endsection

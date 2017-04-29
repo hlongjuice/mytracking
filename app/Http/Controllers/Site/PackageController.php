@@ -44,6 +44,16 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+           'sender_name'=>'required',
+            'sender_phone'=>'required',
+            'sender_address'=>'required',
+            'receiver_name'=>'required',
+            'receiver_phone'=>'required',
+            'receiver_address'=>'required'
+        ],[
+            'required'=>'กรุณากรอกข้อมูล'
+        ]);
         $package=new Package();
         $package->service_id=str_random(8);
         $package->lat_start=$request->input('lat_start');

@@ -185,7 +185,8 @@
                 {{--Sender Info--}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">
+                        <div class="tracking-address panel-title">
+                            <img src="{{asset('images/map-icon/package2.svg')}}">
                             ข้อมูลผู้ส่ง
                         </div>
                     </div>
@@ -220,7 +221,8 @@
                 {{--Receiver Info--}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">
+                        <div class="tracking-address panel-title">
+                            <img src="{{asset('images/map-icon/home3.svg')}}">
                             ข้อมูลผู้รับ
                         </div>
                     </div>
@@ -268,6 +270,7 @@
     <script type="text/javascript">
         var driver_icon=null;
         /*Setting Service Price from database for Calculating*/
+        var start_price="{{$package_price->start_price}}";
         var weight_per_price="{{$package_price->weight_price}}";
         var distance_per_price="{{$package_price->distance_price}}";
         var home_icon={

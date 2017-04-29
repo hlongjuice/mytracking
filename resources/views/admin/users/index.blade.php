@@ -14,6 +14,7 @@
                         <th>username</th>
                         <th>ชื่อ</th>
                         <th>ประเภท</th>
+                        <th>รูป</th>
                         <th>แก้ไข</th>
                         <th>ลบ</th>
                     </tr>
@@ -24,6 +25,7 @@
                         <td>{{$member->username}}</td>
                         <td>{{$member->name}}</td>
                         <td>{{$member->memberType->type}}</td>
+                        <td><img width="50px;" height="50px;" src="{{asset($member->image)}}"></td>
                         <td><a href="{{route('admin.members.edit',$member->id)}}" class="btn btn-info">แก้ไข</a></td>
                         <td><form onsubmit="return confirm('ต้องการจะลบสมาชิก ?')" method="post" action="{{route('admin.members.destroy',$member->id)}}">
                                 {{csrf_field()}}

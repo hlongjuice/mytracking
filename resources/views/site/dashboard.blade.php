@@ -53,6 +53,12 @@
                             <img src="{{asset('images/icons/service.svg')}}">
                             {{--<i class="fa fa-bookmark"></i>--}}
                         </div>
+                        @if($package_count>0)
+                        <div class="notify">
+                            {{--<img src="{{asset('images/icons/notify.svg')}}">--}}
+                            <span class="notify-number">{{$package_count}}</span>
+                        </div>
+                        @endif
                         <div class="title">
                             รายการนำส่ง
                         </div>

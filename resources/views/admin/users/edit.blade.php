@@ -13,7 +13,7 @@
                         <!-- Member Type-->
                 <div class="row">
                     <div class="col-xs-12 col-md-1">
-                        <div class="profile-image" align="center">
+                        <div class="profile profile-image" align="center">
                             @if($member->image!=null)
                                 <img class="thumbnail" src="{{asset($member->image)}}">
                             @else
