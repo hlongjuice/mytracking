@@ -13,7 +13,7 @@
                         <tr>
                             <th>ลำดับ</th>
                             <th>สถานะ</th>
-                            <th>รหัสบริการ</th>
+                            <th>driver-details-result</th>
                             <th>ที่อยู่ผู้ส่ง</th>
                             <th>ที่อยู่ผู้รับ</th>
                             <th>วันที่</th>

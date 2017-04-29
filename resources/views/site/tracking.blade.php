@@ -17,7 +17,7 @@
                             <label class="control-label col-xs-12 col-md-3">ต้นทาง</label>
                             <div class="col-xs-12 col-md-6">
                                 <input id="txtSource" type="text" name="start" class="form-control">
-                                <div class="text-danger">{{$errors->first()}}</div>
+
                             </div>
                         </div>
 
@@ -131,8 +131,8 @@
                                 <td>กิโลกรัม</td>
                             </tr>
                             {{--Total Price--}}
-                            <tr>
-                                <td>รวมค่าใช่จ่าย</td>
+                            <tr class="bg-success total-payment">
+                                <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>รวมค่าใช่จ่าย</span></td>
                                 <td><input class="form-control" readonly value=""  name="total_price" id="total_price" type="text"></td>
                                 <td>บาท</td>
                             </tr>
@@ -144,7 +144,8 @@
                 {{--Sender Info--}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">
+                        <div class="tracking-address panel-title">
+                            <img src="{{asset('images/map-icon/package2.svg')}}">
                             ข้อมูลผู้ส่ง
                         </div>
                     </div>
@@ -170,8 +171,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-12 col-md-3">ที่อยู่</label>
                                 <div class="col-xs-12 col-md-6">
-                                    <textarea class="form-control" name="sender_address" id="sender_address" form="tracking_form">
-                                    </textarea>
+                                    <textarea class="form-control" name="sender_address" id="sender_address" form="tracking_form"></textarea>
                                     <div class="text-danger">{{$errors->first()}}</div>
                                 </div>
                             </div>
@@ -181,7 +181,8 @@
                 {{--Receiver Info--}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">
+                        <div class="tracking-address panel-title">
+                            <img src="{{asset('images/map-icon/home3.svg')}}">
                             ข้อมูลผู้รับ
                         </div>
                     </div>

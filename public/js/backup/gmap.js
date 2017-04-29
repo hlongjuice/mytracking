@@ -3,7 +3,6 @@
  */
 var source, destination;
 var directionsDisplay= new google.maps.DirectionsRenderer();
-
 var directionsService = new google.maps.DirectionsService();
 var lat_start=document.getElementById('txtLatStart');
 var lng_start=document.getElementById('txtLngStart');
@@ -80,13 +79,13 @@ function getRoute(){
             calculatePrice();
         }
         else {
+            driver_marker.setPosition(null);
             alert("Unable to find the distance via road.");
         }
         /*Get way point for driver position*/
         //getWayPoints(response);
     });
 }
-
 /*Destination Marker Changed Event*/
 destination_marker.addListener('dragend',function(){
     document.getElementById('txtSource').value=driver_marker.getPosition().lat()+','+driver_marker.getPosition().lng();

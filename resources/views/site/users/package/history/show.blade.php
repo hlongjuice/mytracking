@@ -110,6 +110,12 @@
                 <div class="line-dot"></div>
                 <table class="table">
                     <tbody>
+                    {{--Start Price--}}
+                    <tr class="border-none">
+                        <td>อัตรค่าบริการต่อระยะทาง</td>
+                        <td><input class="form-control" readonly value="{{$package_price->start_price}}"  name="start_price" id="start_price" type="text"></td>
+                        <td>บาท/กม.</td>
+                    </tr>
                     {{--Distance Per Price--}}
                     <tr class="border-none">
                         <td>อัตรค่าบริการต่อระยะทาง</td>
@@ -141,8 +147,8 @@
                         <td>กิโลกรัม</td>
                     </tr>
                     {{--Total Price--}}
-                    <tr>
-                        <td>รวมค่าใช่จ่าย</td>
+                    <tr class="bg-success total-payment">
+                        <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>รวมค่าใช่จ่าย</span></td>
                         <td><input class="form-control" readonly value=""  name="total_price" id="total_price" type="text"></td>
                         <td>บาท</td>
                     </tr>

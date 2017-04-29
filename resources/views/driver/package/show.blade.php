@@ -147,8 +147,8 @@
                         <td>กิโลกรัม</td>
                     </tr>
                     {{--Total Price--}}
-                    <tr>
-                        <td>รวมค่าใช่จ่าย</td>
+                    <tr class="bg-success total-payment">
+                        <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>รวมค่าใช่จ่าย</span></td>
                         <td><input class="form-control" readonly value=""  name="total_price" id="total_price" type="text"></td>
                         <td>บาท</td>
                     </tr>

@@ -179,6 +179,7 @@ body{
 .bg-color-black{
     background-color:#444;
 }
+/*Landing Page*/
 .landing-page2{
     padding-top:10%;
     padding-right:2%;
@@ -197,6 +198,20 @@ body{
 .landing-page2-login-form .btn-primary{
     background-color: #46b9e3;
     border: none;
+}
+.total-payment{
+    font-size: 18px;
+    font-weight: bold;
+}
+.total-payment span{
+    float:left;
+    padding-top:10px;
+}
+/*Result Address*/
+.tracking-address img{
+    width:30px;
+    height:30px;
+    margin-right:10px;
 }
 
 
