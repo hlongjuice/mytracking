@@ -33,11 +33,20 @@ body{
         /*width: inherit;*/
     /*}*/
 /*}*/
+#user-menu a{
+    color:#fff;
+}
 #current_distance{
 
 }
 .navbar{
     border-radius: 0 !important;
+}
+.btn-danger:hover{
+    background-color: #c9302c !important;
+}
+.nav-user-icon{
+    padding:10px;
 }
 .landing-page{
     /*padding-top: 50px;*/
@@ -206,6 +215,58 @@ body{
 .total-payment span{
     float:left;
     padding-top:10px;
+}
+/*Result*/
+/*Result Grid*/
+.result-grid{
+    /*border-right:1px solid #ccc;*/
+    padding: 20px 120px 15px 20px;
+    margin-bottom:20px;
+    min-height: 101px;
+}
+.result-bg-danger{
+    background-color: #c9302c;
+}
+.result-bg-success{
+    background-color: #449d44;
+}
+.result-bg-info{
+    background-color: #31b0d5;
+}
+.result-bg-primary{
+    background-color: #337ab7;
+}
+.result-bg-warning{
+    background-color: #f0ad4e;
+}
+.result-grid .icon{
+    position: absolute;
+    top: 20px;
+    left: 45px;
+    font-size: 52px;
+    line-height: 1;
+    color: #fff;
+}
+.result-grid .line{
+    position: absolute;
+    top: 20px;
+    left: 185px;
+    height: 60px;
+    border-right: solid 2px #fff;
+}
+.result-grid .title{
+    display: table;
+    position: absolute;
+    top:20px;
+    right: 45px;
+    color:#fff;
+    font-size: 1.8em;
+    /*font-size: 18px;*/
+}
+.result-grid .title span{
+    display: block;
+    margin-top: 10px;
+    font-size: 0.55em;
 }
 /*Result Address*/
 .tracking-address img{

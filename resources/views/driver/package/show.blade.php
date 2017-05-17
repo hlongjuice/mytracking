@@ -43,9 +43,19 @@
             <div class="ln_solid"></div>
             {{--Sender Location--}}
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        จำลองระบบระบุตำแหน่งรถขนส่งของ<br>(คลิกบนแผนที่เพื่อระบุตำแหน่ง)
+                <div class="col-xs-12 panel-heading">
+                    <div class="row">
+                        <div class="panel-title">
+                            <div class="col-xs-12 col-md-8">
+                                <p>ระบุตำแหน่งรถขนส่งของ<br>(คลิกบนแผนที่ หรือ กดปุ่มค้นหาตำแหน่งปัจจุบัน เพื่อระบุตำแหน่ง)</p>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <button class="pull-right btn btn-info" onclick="getDriverPosition()" type="button">
+                                    ค้นหาตำแหน่งปัจจุบัน
+                                    <i id="position_loading" style="display:none;" class="fa fa-spinner fa-spin fa-fw"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -76,6 +86,51 @@
         <div class="panel-body">
             <div class="row">
                 <div id="dvMap" style="width:100%; height:500px;"></div>
+            </div>
+        </div>
+    </div>
+    {{--Result Grid--}}
+    <div class="row">
+        {{--Status--}}
+        <div class="col-xs-12 col-md-4">
+            <div class="result-grid result-bg-{{$package->status->color}}">
+                <div class="icon">
+                    <img src="{{asset('images/icons/status.svg')}}">
+                    {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                </div>
+                <div class="visible-xs line"></div>
+                <div class="title">
+                    {{$package->status->title}}
+                    <span>สถาณะการจัดส่ง</span>
+                </div>
+            </div>
+        </div>
+        {{--Distance--}}
+        <div class="col-xs-12 col-md-4">
+            <div class="result-grid result-bg-info">
+                <div class="icon">
+                    <img src="{{asset('images/icons/distance.svg')}}">
+                    {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                </div>
+                <div class="visible-xs line"></div>
+                <div class="title">
+                    <div id="result-grid-distance"></div>
+                    <span>ระยะทางคงเหลือ</span>
+                </div>
+            </div>
+        </div>
+        {{--Price--}}
+        <div class="col-xs-12 col-md-4">
+            <div class="result-grid result-bg-success">
+                <div class="icon">
+                    <img src="{{asset('images/icons/thai-baht.svg')}}">
+                    {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                </div>
+                <div class="visible-xs line"></div>
+                <div class="title">
+                    <div id="result-grid-totalPrice"></div>
+                    <span>ราคาโดยประมาณ</span>
+                </div>
             </div>
         </div>
     </div>
@@ -148,7 +203,7 @@
                     </tr>
                     {{--Total Price--}}
                     <tr class="bg-success total-payment">
-                        <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>รวมค่าใช่จ่าย</span></td>
+                        <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>ราคาโดยประมาณ</span></td>
                         <td><input class="form-control" readonly value=""  name="total_price" id="total_price" type="text"></td>
                         <td>บาท</td>
                     </tr>

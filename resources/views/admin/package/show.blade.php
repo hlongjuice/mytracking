@@ -42,7 +42,7 @@
                     <input value="{{$package->lng_start}}" id="txtLngStart" type="text" class="hidden">
 
                     {{--Start Position--}}
-                    @if(in_array($package->status_id,[1,2]))
+                    @if(in_array($package->status_id,[1,2,5]))
                         <input value="{{$package->lat_start}},{{$package->lng_start}}" id="txtSource" type="text" name="txtSource" class="hidden">
                     @elseif(in_array($package->status_id,[3,4]))
                         <input value="{{$package->staff_lat}},{{$package->staff_lng}}" id="txtSource" type="text" name="txtSource" class="hidden">
@@ -170,7 +170,7 @@
                     </tr>
                     {{--Total Price--}}
                     <tr class="bg-success total-payment">
-                        <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>รวมค่าใช่จ่าย</span></td>
+                        <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>ราคาโดยประมาณ</span></td>
                         <td><input class="form-control" readonly value=""  name="total_price" id="total_price" type="text"></td>
                         <td>บาท</td>
                     </tr>
@@ -280,7 +280,7 @@
         var package_icon={
             url:'{{asset('images/map-icon/package2.svg')}}'
         };
-        if('{{$package->status_id}}'==1 || '{{$package->status_id}}'==2){
+        if('{{$package->status_id}}'==1 || '{{$package->status_id}}'==2 || '{{$package->status_id}}'==5){
             driver_icon={
                 url:'{{asset('images/map-icon/package2.svg')}}'
             };

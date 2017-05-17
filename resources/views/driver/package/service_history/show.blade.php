@@ -43,7 +43,7 @@
                     <input value="{{$package->lng_start}}" id="txtLngStart" type="text" class="hidden">
 
                     {{--Start Position--}}
-                    @if(in_array($package->status_id,[1,2]))
+                    @if(in_array($package->status_id,[1,2,5]))
                         <input value="{{$package->lat_start}},{{$package->lng_start}}" id="txtSource" type="text" name="txtSource" class="hidden">
                     @elseif(in_array($package->status_id,[3,4]))
                         <input value="{{$package->staff_lat}},{{$package->staff_lng}}" id="txtSource" type="text" name="txtSource" class="hidden">
@@ -61,10 +61,21 @@
                 {{--Sender Location--}}
                 @if(in_array($package->status_id,[1,2]))
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            จำลองระบบระบุตำแหน่งรถขนส่งของ<br>(คลิกบนแผนที่เพื่อระบุตำแหน่ง)
+                    <div class="col-xs-12 panel-heading">
+                        <div class="row">
+                            <div class="panel-title">
+                                <div class="col-xs-12 col-md-8">
+                                    <p>ระบุตำแหน่งรถขนส่งของ<br>(คลิกบนแผนที่ หรือ กดปุ่มค้นหาตำแหน่งปัจจุบัน เพื่อระบุตำแหน่ง)</p>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <button class="pull-right btn btn-info" onclick="getProcess2Direction()" type="button">
+                                        ค้นหาตำแหน่งปัจจุบัน
+                                        <i id="position_loading" style="display:none;" class="fa fa-spinner fa-spin fa-fw"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -86,14 +97,74 @@
                     @endif
             </div>
         </form>
-
     </div>
+    @if(in_array($package->status_id,[1,2]))
+    {{--Result Grid--}}
+    <div class="row">
+        {{--Status--}}
+        <div class="col-xs-12 col-md-4">
+            <div class="result-grid result-bg-{{$package->status->color}}">
+                <div class="icon">
+                    <img src="{{asset('images/icons/status.svg')}}">
+                    {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                </div>
+                <div class="visible-xs line"></div>
+                <div class="title">
+                    {{$package->status->title}}
+                    <span>สถาณะการจัดส่ง</span>
+                </div>
+            </div>
+        </div>
+        {{--Distance--}}
+        <div class="col-xs-12 col-md-4">
+            <div class="result-grid result-bg-info">
+                <div class="icon">
+                    <img src="{{asset('images/icons/distance.svg')}}">
+                    {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                </div>
+                <div class="visible-xs line"></div>
+                <div class="title">
+                    <div id="result-grid-distance"></div>
+                    <span>ระยะทางคงเหลือ</span>
+                </div>
+            </div>
+        </div>
+        {{--Price--}}
+        <div class="col-xs-12 col-md-4">
+            <div class="result-grid result-bg-success">
+                <div class="icon">
+                    <img src="{{asset('images/icons/thai-baht.svg')}}">
+                    {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                </div>
+                <div class="visible-xs line"></div>
+                <div class="title">
+                    <div id="result-grid-totalPrice"></div>
+                    <span>ราคาโดยประมาณ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 
     {{--Direction Map--}}
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title">
-                ตำแหน่งรับและส่งสินค้า
+        <div class="col-xs-12 panel-heading">
+            <div class="row">
+                <div class="panel-title">
+                    <div class="col-xs-12 col-md-8">
+                        <p>ตำแหน่งรับและส่งสินค้า</p>
+                    </div>
+                    @if($package->status_id==3)
+                    <div class="col-xs-12 col-md-4">
+                        <button onclick="getProcess3Direction()" type="button" class="pull-right btn btn-info">
+                            ค้นหาตำแหน่งปัจจุบัน
+                            <i id="position_loading" style="display:none;" class="fa fa-spinner fa-spin fa-fw"></i>
+                        </button>
+
+                    </div>
+                        @endif
+
+                </div>
             </div>
         </div>
         <div class="panel-body">
@@ -102,83 +173,142 @@
             </div>
         </div>
     </div>
+    @if(in_array($package->status_id,[3,4,5]))
+        {{--Result Grid--}}
+        <div class="row">
+            {{--Status--}}
+            <div class="col-xs-12 col-md-4">
+                <div class="result-grid result-bg-{{$package->status->color}}">
+                    <div class="icon">
+                        <img src="{{asset('images/icons/status.svg')}}">
+                        {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                    </div>
+                    <div class="visible-xs line"></div>
+                    <div class="title">
+                        {{$package->status->title}}
+                        <span>สถาณะการจัดส่ง</span>
+                    </div>
+                </div>
+            </div>
+            {{--Distance--}}
+            <div class="col-xs-12 col-md-4">
+                <div class="result-grid result-bg-info">
+                    <div class="icon">
+                        <img src="{{asset('images/icons/distance.svg')}}">
+                        {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                    </div>
+                    <div class="visible-xs line"></div>
+                    <div class="title">
+                        <div id="result-grid-distance"></div>
+                        <span>ระยะทางคงเหลือ</span>
+                    </div>
+                </div>
+            </div>
+            {{--Price--}}
+            <div class="col-xs-12 col-md-4">
+                <div class="result-grid result-bg-success">
+                    <div class="icon">
+                        <img src="{{asset('images/icons/thai-baht.svg')}}">
+                        {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                    </div>
+                    <div class="visible-xs line"></div>
+                    <div class="title">
+                        <div id="result-grid-totalPrice"></div>
+                        <span>ราคาโดยประมาณ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
 
     {{--Package Info--}}
     <form id="tracking_form" action="{{route('package.store')}}" method="POST">
         {{csrf_field()}}
-        <div style="margin-top:20px;" class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    ลายละเอียด
-                </div>
+        {{--Result Collapse--}}
+        <div class="row">
+            <div class="hidden-xs col-md-8 ">
+                <div style="margin-top:15px;" class="line-dot "></div>
             </div>
-            <div class="panel-body">
-                {{--Lat/Lng--}}
-                <table class="hidden table">
-                    <thead>
-                    <tr class="active">
-                        <th></th>
-                        <th>ละติจูด</th>
-                        <th>ลองติจูด</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <td>ต้นทาง</td>
-                        <td><input class="form-control" readonly value=""  name="lat_start" id="lat_start" type="text"></td>
-                        <td><input class="form-control" readonly value=""  name="lng_start" id="lng_start" type="text"></td>
-                    </tr>
-                    <tr>
-                        <td>ปลายทาง</td>
-                        <td> <input class="form-control" readonly value=""  name="lat_end" id="lat_end" type="text"></td>
-                        <td><input class="form-control" readonly value=""  name="lng_end" id="lng_end" type="text"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="line-dot"></div>
-                <table class="table">
-                    <tbody>
-                    {{--Distance Per Price--}}
-                    <tr class="border-none">
-                        <td>อัตรค่าบริการต่อระยะทาง</td>
-                        <td><input class="form-control" readonly value="{{$package_price->distance_price}}"  name="distance_price" id="distance_price" type="text"></td>
-                        <td>บาท/กม.</td>
-                    </tr>
-                    {{--Distance Per Weight--}}
-                    <tr class="border-none">
-                        <td>อัตรค่าบริการต่อน้ำหนัก</td>
-                        <td><input class="form-control" readonly value="{{$package_price->weight_price}}"  name="weight_price" id="weight_price" type="text"></td>
-                        <td>บาท/กก.</td>
-                    </tr>
-                    {{--Distance--}}
-                    <tr>
-                        <td>ระยะทางทั้งหมด</td>
-                        <td><input class="form-control" readonly value=""  name="distance" id="distance" type="text"></td>
-                        <td>กิโลเมตร</td>
-                    </tr>
-                    {{--Distance--}}
-                    <tr class="border-none">
-                        <td>ระยะทางคงเหลือ</td>
-                        <td><input class="form-control" readonly value=""  name="current_distance" id="current_distance" type="text"></td>
-                        <td>กิโลเมตร</td>
-                    </tr>
-                    {{--Product Weight--}}
-                    <tr class="border-none">
-                        <td>น้ำหนัก</td>
-                        <td><input class="form-control" readonly value=""  name="result_weight" id="result_weight" type="text"></td>
-                        <td>กิโลกรัม</td>
-                    </tr>
-                    {{--Total Price--}}
-                    <tr class="bg-success total-payment">
-                        <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>รวมค่าใช่จ่าย</span></td>
-                        <td><input class="form-control" readonly value=""  name="total_price" id="total_price" type="text"></td>
-                        <td>บาท</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="col-xs-12 col-md-4">
+                <button style="margin-bottom: 10px;" class="btn btn-info btn-block" data-toggle="collapse" data-target="#price-details" type="button">แสดงลายละเอียดทั้งหมด</button>
             </div>
         </div>
+        <div class="collapse" id="price-details">
+            <div style="margin-top:20px;" class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        ลายละเอียด
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {{--Lat/Lng--}}
+                    <table class="hidden table">
+                        <thead>
+                        <tr class="active">
+                            <th></th>
+                            <th>ละติจูด</th>
+                            <th>ลองติจูด</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td>ต้นทาง</td>
+                            <td><input class="form-control" readonly value=""  name="lat_start" id="lat_start" type="text"></td>
+                            <td><input class="form-control" readonly value=""  name="lng_start" id="lng_start" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>ปลายทาง</td>
+                            <td> <input class="form-control" readonly value=""  name="lat_end" id="lat_end" type="text"></td>
+                            <td><input class="form-control" readonly value=""  name="lng_end" id="lng_end" type="text"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="line-dot"></div>
+                    <table class="table">
+                        <tbody>
+                        {{--Distance Per Price--}}
+                        <tr class="border-none">
+                            <td>อัตรค่าบริการต่อระยะทาง</td>
+                            <td><input class="form-control" readonly value="{{$package_price->distance_price}}"  name="distance_price" id="distance_price" type="text"></td>
+                            <td>บาท/กม.</td>
+                        </tr>
+                        {{--Distance Per Weight--}}
+                        <tr class="border-none">
+                            <td>อัตรค่าบริการต่อน้ำหนัก</td>
+                            <td><input class="form-control" readonly value="{{$package_price->weight_price}}"  name="weight_price" id="weight_price" type="text"></td>
+                            <td>บาท/กก.</td>
+                        </tr>
+                        {{--Distance--}}
+                        <tr>
+                            <td>ระยะทางทั้งหมด</td>
+                            <td><input class="form-control" readonly value=""  name="distance" id="distance" type="text"></td>
+                            <td>กิโลเมตร</td>
+                        </tr>
+                        {{--Distance--}}
+                        <tr class="border-none">
+                            <td>ระยะทางคงเหลือ</td>
+                            <td><input class="form-control" readonly value=""  name="current_distance" id="current_distance" type="text"></td>
+                            <td>กิโลเมตร</td>
+                        </tr>
+                        {{--Product Weight--}}
+                        <tr class="border-none">
+                            <td>น้ำหนัก</td>
+                            <td><input class="form-control" readonly value=""  name="result_weight" id="result_weight" type="text"></td>
+                            <td>กิโลกรัม</td>
+                        </tr>
+                        {{--Total Price--}}
+                        <tr class="bg-success total-payment">
+                            <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>ราคาโดยประมาณ</span></td>
+                            <td><input class="form-control" readonly value=""  name="total_price" id="total_price" type="text"></td>
+                            <td>บาท</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         {{--Sender And Receiver Info--}}
         <div class="row">
             <div class="col-xs-12 col-md-6">

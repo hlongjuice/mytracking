@@ -19,6 +19,13 @@
                                 <input id="txtSource" type="text" name="start" class="form-control">
 
                             </div>
+                            <div class="col-xs-12 col-md-3">
+                                <button onclick="getCurrentSource()" type="button" class="btn btn-info">
+                                    ที่อยู่ปัจจุบัน
+                                    <i id="position_loading" style="display:none;" class="fa fa-spinner fa-spin fa-fw"></i>
+                                </button>
+
+                            </div>
                         </div>
 
                     {{--Destination Input--}}
@@ -34,7 +41,7 @@
 
                     {{--Product Weight Input--}}
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-md-3">น้ำหนักสินค้า</label>
+                        <label class="control-label col-xs-12 col-md-3">น้ำหนักสินค้าโดยประมาณ</label>
                         <div class="col-xs-12 col-md-6">
                             <div class="input-group">
                                 <input value="0" type="number" id="weight" name="weight" class="form-control">
@@ -64,8 +71,49 @@
                 </div>
             </div>
     </div>
+        {{--Result Grid--}}
+        <div class="row">
+
+            {{--Distance--}}
+            <div class="col-xs-12 col-md-6">
+                <div class="result-grid result-bg-info">
+                    <div class="icon">
+                        <img src="{{asset('images/icons/distance.svg')}}">
+                        {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                    </div>
+                    <div class="visible-xs line"></div>
+                    <div class="title">
+                        <div id="result-grid-distance"></div>
+                        <span>ระยะทาง</span>
+                    </div>
+                </div>
+            </div>
+            {{--Price--}}
+            <div class="col-xs-12 col-md-6">
+                <div class="result-grid result-bg-success">
+                    <div class="icon">
+                        <img src="{{asset('images/icons/thai-baht.svg')}}">
+                        {{--<i class="fa fa-bookmark" aria-hidden="true"></i>--}}
+                    </div>
+                    <div class="visible-xs line"></div>
+                    <div class="title">
+                        <div id="result-grid-totalPrice"></div>
+                        <span>ราคาโดยประมาณ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="hidden-xs col-md-8 ">
+                <div style="margin-top:15px;" class="line-dot "></div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <button style="margin-bottom: 10px;" class="btn btn-info btn-block" data-toggle="collapse" data-target="#price-details" type="button">แสดงลายละเอียดทั้งหมด</button>
+            </div>
+        </div>
         <form id="tracking_form" action="{{route('package.store')}}" method="POST">
                 {{csrf_field()}}
+            <div class="collapse" id="price-details">
                 <div style="margin-top:20px;" class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">
@@ -132,7 +180,7 @@
                             </tr>
                             {{--Total Price--}}
                             <tr class="bg-success total-payment">
-                                <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>รวมค่าใช่จ่าย</span></td>
+                                <td><img style="float: left; margin-right:10px;"  src="{{asset('images/icons/total_payment.svg')}}"><span>ราคาโดยประมาณ</span></td>
                                 <td><input class="form-control" readonly value=""  name="total_price" id="total_price" type="text"></td>
                                 <td>บาท</td>
                             </tr>
@@ -140,6 +188,7 @@
                         </table>
                     </div>
                 </div>
+            </div>
 
                 {{--Sender Info--}}
                 <div class="panel panel-default">

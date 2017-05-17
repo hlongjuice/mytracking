@@ -1,5 +1,5 @@
 @if(Auth::user())
-<div class="panel panel-default">
+<div class="hidden-xs hidden-sm panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">
             ผู้ใช้งาน

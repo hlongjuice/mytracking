@@ -120,6 +120,13 @@ class PackageController extends Controller
             $package->staff_id=Auth::user()->id;
             $package->save();
         }
+        elseif($request->input('status')==5){
+            $package->staff_id=Auth::user()->id;
+            $package->status_id=$request->input('status');
+            $package->staff_lat=$package->lat_start;
+            $package->staff_lng=$package->lng_start;
+            $package->save();
+        }
         else{
             $package->staff_lat=$package->lat_end;
             $package->staff_lng=$package->lng_end;

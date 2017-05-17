@@ -22,6 +22,11 @@
 |
 */
 
+/*AppService*/
+    Route::get('test_json','TestJsonController@index');
+    Route::get('api/package','AppService\PackageController@index');
+    Route::get('api/package/{id}','AppService\PackageController@show');
+
 Route::group(['middleware'=>'web'],function(){
 
     Route::auth();

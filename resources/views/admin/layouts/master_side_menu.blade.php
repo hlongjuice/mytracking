@@ -1,11 +1,11 @@
-<div class="panel panel-default">
+<div class="hidden-xs hidden-sm  panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">
             ผู้ใช้งาน
         </div>
     </div>
     <div class="panel-body">
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-md-12">
             <div class="text-center">
                 <div class="profile" align="center">
                     @if(Auth::user()->image==null)

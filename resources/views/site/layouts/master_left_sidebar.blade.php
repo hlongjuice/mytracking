@@ -27,21 +27,20 @@
     @yield('nav-bar')
 </section>
 <div class="main container-fluid">
+    {{--Main Content--}}
+    <section id="main-content">
+        <div class="col-xs-12 col-md-push-3 col-md-9">
+            @yield('content')
+        </div>
+    </section>
 
     {{--Side Menu--}}
     <section id="side-menu">
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-pull-9 col-md-3">
             @include('site.layouts.side_menu')
             @yield('side_menu_top')
             {{--@include('site.layouts.master_side_menu')--}}
             @yield('side_menu_bottom')
-        </div>
-    </section>
-
-    {{--Main Content--}}
-    <section id="main-content">
-        <div class="col-xs-12 col-md-9">
-            @yield('content')
         </div>
     </section>
 </div>

@@ -35,6 +35,7 @@
             </div>
         </div>
         <div class="line-dot"></div>
+        @if($package->status_id==4)
         {{--Deriverly Car Icon--}}
         <div class="row">
             <div class="col-xs-4">
@@ -44,5 +45,7 @@
                <p>ส่งของเสร็จเรียบร้อย</p>
             </div>
         </div>
+        @endif
     </div>
+
 </div>
